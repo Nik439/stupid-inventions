@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.10.13",
-    "socket.io": "^3.0.1"
-  }
-}
