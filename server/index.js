@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require('path');
 const http = require("http");
-const socketIo = require("socket.io");
+const sio = require("./io");
 const startDb = require('./db');
 
 const port = process.env.PORT || 5000;
@@ -15,11 +15,7 @@ app.get('*', (req, res) => {
 
 const server = http.createServer(app);
 
-const io = socketIo(server);
-
-io.on("connection", (socket) => {
-  console.log("New client connected", socket.id);
-});
+sio(server);
 
 startDb().then(() => {
   server.listen(port, () => console.log(`Listening on port ${port}`));

@@ -9,8 +9,11 @@ const socket = socketIOClient(ENDPOINT);
 
 function Main (params) {
   const [gamePhase, setGamePhase] = useState('home');
-  const [userName, setUser] = useLocalStorage('name');
+  const [userName, setUser] = useLocalStorage('name', '');
   const [homeError, setHomeError] = useState('');
+  const [roomCode, setRoomCode] = useState('');
+  const [isHost, setHost] = useState(false);
+  const [playersList, setPlayersList] = useState([]);
 
   useEffect(() => {
     socket.on('roomDoesntExist', () => {
@@ -18,6 +21,15 @@ function Main (params) {
     });
     socket.on('nameAlreadyExists', () => {
       setHomeError("Player name already taken");
+    });
+    socket.on('joinRoom', (room, hosting) => {
+      setHost(hosting);
+      setRoomCode(room);
+      setGamePhase('lobby');
+    });
+    socket.on('players', data => {
+      console.log(data);
+      setPlayersList(data);
     });
   }, []);
 
@@ -36,6 +48,10 @@ function Main (params) {
       case 'home':
         return (
           <Home name={userName} homeError={homeError} hostGame={hostGame} joinGame={joinGame}/>
+        );
+      case 'lobby':
+        return(
+          <div></div>
         );
       default:
         return <h1>error</h1>;

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 async function startDb() {
-  await mongoose.connect('mongodb+srv://admiNik:0cdeVmaZnqwAvnJ8@cluster0.dgiv3.mongodb.net/stupid-inventions?retryWrites=true&w=majority');
+  await mongoose.connect('mongodb://localhost:27017/stupid-inventions-db');
 }
 
 module.exports = startDb;

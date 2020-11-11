@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Home(props) {
   const [joinCode, setJoinCode] = useState('');
-  const [nameCount, setNameCount] = useState(props.name.length || 0);
+  const [nameCount, setNameCount] = useState(props.name ? props.name.length : 0);
   const [name, setName] = useState(props.name);
 
   return (
