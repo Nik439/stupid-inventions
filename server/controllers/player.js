@@ -44,3 +44,11 @@ exports.resetDone = async (room) => {
     console.log(err);
   }
 }
+
+exports.updateDrawing = async (socket, drawing) => {
+  try {
+    await Player.updateOne({socket: socket}, { $set: { drawing: drawing, done: true} });
+  } catch (err) {
+    console.log(err);
+  }
+}

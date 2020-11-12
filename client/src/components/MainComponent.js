@@ -5,6 +5,7 @@ import { useLocalStorage  } from '@rehooks/local-storage';
 import Home from './HomeComponent';
 import Lobby from './LobbyComponent';
 import Problem from './ProblemComponent';
+import Drawing from './DrawingComponent';
 
 const ENDPOINT =`localhost:5000`;
 const socket = socketIOClient(ENDPOINT);
@@ -38,6 +39,9 @@ function Main () {
       setProblem(prob);
       setGamePhase('problem');
     });
+    socket.on('draw', () => {
+      setGamePhase('drawing');
+    });
   }, []);
 
   function hostGame (name) {
@@ -59,6 +63,11 @@ function Main () {
     socket.emit('problemSubmit', problemInput, userName, roomCode);
   }
 
+  function submitInvention (drwProps) {
+    // setGamePhase('wait');
+    socket.emit('drwSubmit', drwProps, roomCode);
+  }
+
   const Game = () => {
     switch (gamePhase) {
       case 'home':
@@ -72,6 +81,10 @@ function Main () {
       case 'problem':
         return(
           <Problem problem={problem} submitProblemInput={submitProblemInput} />
+        );
+      case 'drawing':
+        return(
+          <Drawing submitInvention={submitInvention}/>
         );
       default:
         return <h1>error</h1>;

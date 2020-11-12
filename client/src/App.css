@@ -15,3 +15,12 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+.canvas {
+  background-color: white;
+  width: calc(100% - 60px);
+  max-width: 500px;
+  height: auto;
+  margin: 2px;
+  cursor: crosshair;
+}

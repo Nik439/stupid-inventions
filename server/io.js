@@ -49,11 +49,23 @@ async function sio(server) {
       io.to(roomCode).emit('start', prob.text);
     });
 
-    socket.on('problemSubmit', async (input, name, room) => {
-      await player.updateProblem(input, name, room);
-      if (await player.allDone(room)) {
-        player.resetDone(room);
-        io.to(room).emit('draw');
+    socket.on('problemSubmit', async (input, name, roomCode) => {
+      await player.updateProblem(input, name, roomCode);
+      if (await player.allDone(roomCode)) {
+        player.resetDone(roomCode);
+        io.to(roomCode).emit('draw');
+      }
+    });
+
+    socket.on('drwSubmit', async (drwProps, roomCode) => {
+      await player.updateDrawing(socket.id, drwProps);
+      if (await player.allDone(roomCode)) {
+        player.resetDone(roomCode);
+        let drawings = (await player.getPlayersInRoom(roomCode)).map(plr => {
+          let drw = Object.assign({playerName: plr.name, problem: plr.problem}, plr.drawing);
+          return drw;
+        });
+        io.to(roomCode).emit('present', drawings);
       }
     });
 
