@@ -10,7 +10,7 @@ function Home(props) {
       <img className="home-logo" src="images/logo.svg" alt="logo"></img>
       {props.homeError !== '' ? <p className="home-error">{props.homeError}</p> : ''}
       <label className="home-name-count">{nameCount}/20</label>
-      <input className="home-name" maxLength="50" type="text" autoComplete="off" value={name} onChange={e=>{setName(e.target.value); setNameCount(e.target.value.length)}} placeholder="ENTER NAME"></input>
+      <input className="home-name" maxLength="20" type="text" autoComplete="off" value={name} onChange={e=>{setName(e.target.value); setNameCount(e.target.value.length)}} placeholder="ENTER NAME"></input>
       <div className="home-inputs">
         <input type="button" value="HOST GAME" className="home-button" onClick={() => props.hostGame(name)} ></input>
         <div className="home-join">

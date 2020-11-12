@@ -1,6 +1,7 @@
 const socketIo = require("socket.io");
 const player = require('./controllers/player');
 const room = require('./controllers/room');
+const problem = require('./controllers/problem');
 
 async function sio(server) {
   const io = socketIo(server);
@@ -22,14 +23,14 @@ async function sio(server) {
     });
 
     socket.on('join', async (roomToCheck, name) => {
-      let players = (await methods.getPlayersInRoom(roomToCheck)).map(player => player.name);
+      let players = (await player.getPlayersInRoom(roomToCheck)).map(plr => plr.name);
       if (players.length > 0) { //room exists
         if (!players.includes(name)) { // new player
           socket.join(roomToCheck, () => {
             socket.emit('joinRoom', roomToCheck, false /*isHost*/ );
             players.push(name);
             io.to(roomToCheck).emit('players', players)
-            methods.postPlayer({
+            player.postPlayer({
               socket: socket.id,
               room: roomToCheck,
               name: name,
@@ -44,8 +45,8 @@ async function sio(server) {
     });
 
     socket.on('start', async (roomCode) => {
-      let problem = await methods.getProblem();
-      io.to(roomCode).emit('start', problem.text);
+      let prob = await problem.getProblem();
+      io.to(roomCode).emit('start', prob.text);
     });
 
   });

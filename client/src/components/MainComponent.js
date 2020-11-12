@@ -3,6 +3,7 @@ import socketIOClient from "socket.io-client";
 import { useLocalStorage  } from '@rehooks/local-storage';
 
 import Home from './HomeComponent';
+import Lobby from './LobbyComponent';
 
 const ENDPOINT =`localhost:5000`;
 const socket = socketIOClient(ENDPOINT);
@@ -43,6 +44,10 @@ function Main () {
     socket.emit('join', roomCode, name);
   }
 
+  function startGame () {
+    if (isHost) socket.emit('start', roomCode);
+  }
+
   const Game = () => {
     switch (gamePhase) {
       case 'home':
@@ -51,7 +56,7 @@ function Main () {
         );
       case 'lobby':
         return(
-          <div></div>
+          <Lobby isHost={isHost} startGame={startGame} playersList={playersList} room={roomCode}/>
         );
       default:
         return <h1>error</h1>;

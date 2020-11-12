@@ -9,3 +9,10 @@ exports.postPlayer = async (plr) => {
     console.log(err);
   }
 };
+
+exports.getPlayersInRoom = async (roomToCheck) => {
+  return await Player.find({room: roomToCheck}, (err, players) => {
+    if (err) console.log(err);
+    return players;
+  });
+}
