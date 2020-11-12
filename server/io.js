@@ -49,6 +49,14 @@ async function sio(server) {
       io.to(roomCode).emit('start', prob.text);
     });
 
+    socket.on('problemSubmit', async (input, name, room) => {
+      await player.updateProblem(input, name, room);
+      if (await player.allDone(room)) {
+        player.resetDone(room);
+        io.to(room).emit('draw');
+      }
+    });
+
   });
 }
 

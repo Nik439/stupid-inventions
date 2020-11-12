@@ -4,6 +4,7 @@ import { useLocalStorage  } from '@rehooks/local-storage';
 
 import Home from './HomeComponent';
 import Lobby from './LobbyComponent';
+import Problem from './ProblemComponent';
 
 const ENDPOINT =`localhost:5000`;
 const socket = socketIOClient(ENDPOINT);
@@ -15,6 +16,7 @@ function Main () {
   const [roomCode, setRoomCode] = useState('');
   const [isHost, setHost] = useState(false);
   const [playersList, setPlayersList] = useState([]);
+  const [problem, setProblem] = useState('');
 
   useEffect(() => {
     socket.on('roomDoesntExist', () => {
@@ -32,6 +34,10 @@ function Main () {
       console.log(data);
       setPlayersList(data);
     });
+    socket.on('start', prob => {
+      setProblem(prob);
+      setGamePhase('problem');
+    });
   }, []);
 
   function hostGame (name) {
@@ -48,6 +54,11 @@ function Main () {
     if (isHost) socket.emit('start', roomCode);
   }
 
+  function submitProblemInput (problemInput) {
+    // setGamePhase('wait');
+    socket.emit('problemSubmit', problemInput, userName, roomCode);
+  }
+
   const Game = () => {
     switch (gamePhase) {
       case 'home':
@@ -57,6 +68,10 @@ function Main () {
       case 'lobby':
         return(
           <Lobby isHost={isHost} startGame={startGame} playersList={playersList} room={roomCode}/>
+        );
+      case 'problem':
+        return(
+          <Problem problem={problem} submitProblemInput={submitProblemInput} />
         );
       default:
         return <h1>error</h1>;

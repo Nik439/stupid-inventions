@@ -16,3 +16,31 @@ exports.getPlayersInRoom = async (roomToCheck) => {
     return players;
   });
 }
+
+exports.updateProblem = async (input, name, room) => {
+  try {
+    await Player.updateOne({name: name, room: room}, { $set: { problem: input, done: true} });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+exports.allDone = async (room) => {
+  try {
+    return (await Player.find({room: room}))
+      .map(player => {
+        return player.done;
+      })
+      .reduce((sum, next) => sum && next, true);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+exports.resetDone = async (room) => {
+  try {
+    await Player.updateMany({room: room}, { $set: { done: false } });
+  } catch (err) {
+    console.log(err);
+  }
+}
