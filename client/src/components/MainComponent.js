@@ -7,7 +7,7 @@ import Home from './HomeComponent';
 const ENDPOINT =`localhost:5000`;
 const socket = socketIOClient(ENDPOINT);
 
-function Main (params) {
+function Main () {
   const [gamePhase, setGamePhase] = useState('home');
   const [userName, setUser] = useLocalStorage('name', '');
   const [homeError, setHomeError] = useState('');

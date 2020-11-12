@@ -12,7 +12,7 @@ async function sio(server) {
       let rm = await room.getAvailableRoom();
       console.log('host on room:', rm);
       socket.join(rm.code);
-      socket.emit('joinRoom', rm.code, true);
+      socket.emit('joinRoom', rm.code, true /*isHost*/ );
       player.postPlayer({
         socket: socket.id,
         room: rm.code,
@@ -26,8 +26,8 @@ async function sio(server) {
       if (players.length > 0) { //room exists
         if (!players.includes(name)) { // new player
           socket.join(roomToCheck, () => {
-            socket.emit('joinRoom', roomToCheck, false);
-            players.push(name)
+            socket.emit('joinRoom', roomToCheck, false /*isHost*/ );
+            players.push(name);
             io.to(roomToCheck).emit('players', players)
             methods.postPlayer({
               socket: socket.id,
@@ -41,6 +41,11 @@ async function sio(server) {
       } else {//room doesn't exist
         socket.emit('roomDoesntExist');
       }
+    });
+
+    socket.on('start', async (roomCode) => {
+      let problem = await methods.getProblem();
+      io.to(roomCode).emit('start', problem.text);
     });
 
   });
