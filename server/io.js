@@ -69,6 +69,17 @@ async function sio(server) {
       }
     });
 
+    socket.on('nextStage', roomCode => {
+      io.to(roomCode).emit('nextStage');
+    });
+    socket.on('nextPres', roomCode => {
+      console.log('nextPres');
+      io.to(roomCode).emit('nextPres');
+    });
+    socket.on('donePresenting', roomCode => {
+      io.to(roomCode).emit('vote');
+    });
+
   });
 }
 
