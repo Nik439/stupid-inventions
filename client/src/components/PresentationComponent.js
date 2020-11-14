@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-function Presentation(props) {
+function Presentation (props) {
   const [currentPres, setCurrentPres] = useState();
 
   useEffect (() => {
-    let current = document.querySelector('.pres-container')
+    let current = document.querySelector('.pres-container');
     current.classList.add('displayed');
     setCurrentPres(current);
   },[]);
@@ -12,15 +12,15 @@ function Presentation(props) {
   useEffect(() => {
     if (currentPres) {
       switch (props.stage) {
-        case 1:
-          currentPres.querySelector('.pres-name').classList.add('show');
-          break;
-        case 2:
-          currentPres.querySelector('.pres-name').classList.add('show');
-          currentPres.querySelector('.pres-drawing').classList.add('show');
-          break; 
-        default:
-          break;
+      case 1:
+        currentPres.querySelector('.pres-name').classList.add('show');
+        break;
+      case 2:
+        currentPres.querySelector('.pres-name').classList.add('show');
+        currentPres.querySelector('.pres-drawing').classList.add('show');
+        break; 
+      default:
+        break;
       }
     }
     

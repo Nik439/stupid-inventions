@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-function Lobby(props) {
+function Lobby (props) {
   useEffect(() => {
     console.log('room: ', props.room);
   }, []);

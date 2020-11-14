@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import socketIOClient from "socket.io-client";
+import socketIOClient from 'socket.io-client';
 import { useLocalStorage  } from '@rehooks/local-storage';
 
 import Home from './HomeComponent';
@@ -8,7 +8,7 @@ import Problem from './ProblemComponent';
 import Drawing from './DrawingComponent';
 import Presentation from './PresentationComponent';
 
-const ENDPOINT =`localhost:5000`;
+const ENDPOINT ='localhost:5000';
 const socket = socketIOClient(ENDPOINT);
 
 function Main () {
@@ -25,10 +25,10 @@ function Main () {
 
   useEffect(() => {
     socket.on('roomDoesntExist', () => {
-      setHomeError("Room doesn't exist");
+      setHomeError('Room doesn\'t exist');
     });
     socket.on('nameAlreadyExists', () => {
-      setHomeError("Player name already taken");
+      setHomeError('Player name already taken');
     });
     socket.on('joinRoom', (room, hosting) => {
       setHost(hosting);
@@ -54,16 +54,16 @@ function Main () {
 
       setStage (stage => {
         switch (stage) {
-          case 'start':
-            return 'title';
-          case 'title':
-            return 'drawing';
-          case 'drawing':
-            return 'start';
-          default:
-            break;
+        case 'start':
+          return 'title';
+        case 'title':
+          return 'drawing';
+        case 'drawing':
+          return 'start';
+        default:
+          break;
         }
-      })
+      });
     });
     socket.on('nextPres', () => {
       setCurrent (current => {
@@ -109,34 +109,33 @@ function Main () {
 
   const Game = () => {
     switch (gamePhase) {
-      case 'home':
-        return (
-          <Home name={userName} homeError={homeError} hostGame={hostGame} joinGame={joinGame}/>
-        );
-      case 'lobby':
-        return(
-          <Lobby isHost={isHost} startGame={startGame} playersList={playersList} room={roomCode}/>
-        );
-      case 'problem':
-        return(
-          <Problem problem={problem} submitProblemInput={submitProblemInput} />
-        );
-      case 'drawing':
-        return(
-          <Drawing submitInvention={submitInvention}/>
-        );
-      case 'presentation':
-        return(
-          <Presentation userName={userName} drawingsList={drawingsList} current={current} stage={stage} changePres={changePres} />
-        );
-      default:
-        return <h1>error</h1>;
+    case 'home':
+      return (
+        <Home name={userName} homeError={homeError} hostGame={hostGame} joinGame={joinGame}/>
+      );
+    case 'lobby':
+      return (
+        <Lobby isHost={isHost} startGame={startGame} playersList={playersList} room={roomCode}/>
+      );
+    case 'problem':
+      return (
+        <Problem problem={problem} submitProblemInput={submitProblemInput} />
+      );
+    case 'drawing':
+      return (
+        <Drawing submitInvention={submitInvention}/>
+      );
+    case 'presentation':
+      return (
+        <Presentation userName={userName} drawingsList={drawingsList} current={current} stage={stage} changePres={changePres} />
+      );
+    default:
+      return <h1>error</h1>;
     }
-    
-  }
+  };
 
   return (
-    <div className="container">
+    <div className='container'>
       <Game/>
     </div>
   );

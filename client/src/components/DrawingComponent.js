@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-function Drawing(props) {
+function Drawing (props) {
   const [drawingName, setDrawingName] = useState('');
   const [nameCount, setNameCount] = useState(0);
   const [context, setContext] = useState({});
@@ -15,8 +15,8 @@ function Drawing(props) {
   contextRef.current = context;
 
   useEffect(() => {
-    let ctx = document.getElementById('canvas').getContext("2d");
-    ctx.lineJoin = "round";
+    let ctx = document.getElementById('canvas').getContext('2d');
+    ctx.lineJoin = 'round';
     ctx.lineWidth = 5;
 
     setContext(ctx);
@@ -52,7 +52,7 @@ function Drawing(props) {
   }
 
   function onMouseMove (e) {
-    if(paint){
+    if (paint) {
       addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, true);
       draw();
     }
@@ -63,7 +63,7 @@ function Drawing(props) {
   }
 
   function onResize () {
-    setDiff(500 / document.getElementById('canvas').offsetWidth)
+    setDiff(500 / document.getElementById('canvas').offsetWidth);
   }
 
   function addClick (addX, addY, dragging) {
@@ -85,9 +85,9 @@ function Drawing(props) {
   function draw () {
     let i = click.x.length-1;        	
     contextRef.current.beginPath();
-    if(click.drag[i] && i){
+    if (click.drag[i] && i) {
       context.moveTo(click.x[i-1], click.y[i-1]);
-    }else{
+    } else {
       contextRef.current.moveTo(click.x[i]-1, click.y[i]);
     }
     contextRef.current.lineTo(click.x[i], click.y[i]);
@@ -96,7 +96,7 @@ function Drawing(props) {
   }
 
   function handleSubmit () {
-    let url = document.getElementById('canvas').toDataURL("image/png");
+    let url = document.getElementById('canvas').toDataURL('image/png');
     let drwProps = {
       name: drawingName,
       url: url
@@ -105,25 +105,25 @@ function Drawing(props) {
   }
 
   return (
-    <div className="drawing">
-        <div className="drawing-container">
-          <label htmlFor="name" className="drawing-label">Invention Name</label>
-          <div className="drawing-inputs">
-            <label className="drawing-name-count">{nameCount}/50</label>
-            <input name="name" className="drawing-name" maxLength="50" onChange={e=>{setDrawingName(e.target.value); setNameCount(e.target.value.lenght)}} autoComplete="off" type="text" placeholder=""></input>
-            <input className="drawing-submit" onClick={handleSubmit} type="button" value="SUBMIT"></input>
-          </div>
-          <div className="drawing-space">
-            <canvas id="canvas" className="canvas" width="500" height="500"></canvas>
-            <div className="drawing-colors">
-              <div className="color black active-color" onClick={(e) => changeColor('#000', e)}></div>
-              <div className="color red" onClick={(e) => changeColor('#df4b26', e)}></div>
-              <div className="color green" onClick={(e) => changeColor('#228622' ,e)}></div>
-              <div className="color blue" onClick={(e) => changeColor('#3a68cc', e)}></div>
-            </div>
+    <div className='drawing'>
+      <div className='drawing-container'>
+        <label htmlFor='name' className='drawing-label'>Invention Name</label>
+        <div className='drawing-inputs'>
+          <label className='drawing-name-count'>{nameCount}/50</label>
+          <input name='name' className='drawing-name' maxLength='50' onChange={e=>{setDrawingName(e.target.value); setNameCount(e.target.value.lenght);}} autoComplete='off' type='text' placeholder=''></input>
+          <input className='drawing-submit' onClick={handleSubmit} type='button' value='SUBMIT'></input>
+        </div>
+        <div className='drawing-space'>
+          <canvas id='canvas' className='canvas' width='500' height='500'></canvas>
+          <div className='drawing-colors'>
+            <div className='color black active-color' onClick={(e) => changeColor('#000', e)}></div>
+            <div className='color red' onClick={(e) => changeColor('#df4b26', e)}></div>
+            <div className='color green' onClick={(e) => changeColor('#228622' ,e)}></div>
+            <div className='color blue' onClick={(e) => changeColor('#3a68cc', e)}></div>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

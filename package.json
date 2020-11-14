@@ -4,5 +4,7 @@
   "main": "index.js",
   "repository": "https://github.com/Nik439/stupid-inventions.git",
   "author": "Nikos Cocci <coccinikos@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
 }

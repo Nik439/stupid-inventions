@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Main from './components/MainComponent';
 
-function App() {
+function App () {
   return (
     <Main/>
   );
