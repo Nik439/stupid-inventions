@@ -36,7 +36,6 @@ function Main () {
       setGamePhase('lobby');
     });
     socket.on('players', data => {
-      console.log(data);
       setPlayersList(data);
     });
     socket.on('start', prob => {
@@ -104,7 +103,7 @@ function Main () {
         socket.emit('donePresenting', roomCode);
       }
     }
-    socket.emit('next', roomCode);
+    socket.emit('nextStage', roomCode);
   }
 
   const Game = () => {

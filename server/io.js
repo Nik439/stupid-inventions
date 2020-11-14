@@ -70,6 +70,7 @@ async function sio (server) {
     });
 
     socket.on('nextStage', roomCode => {
+      console.log('nextStage');
       io.to(roomCode).emit('nextStage');
     });
     socket.on('nextPres', roomCode => {
@@ -77,6 +78,7 @@ async function sio (server) {
       io.to(roomCode).emit('nextPres');
     });
     socket.on('donePresenting', roomCode => {
+      console.log('vote');
       io.to(roomCode).emit('vote');
     });
 

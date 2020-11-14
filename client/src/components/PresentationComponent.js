@@ -12,10 +12,10 @@ function Presentation (props) {
   useEffect(() => {
     if (currentPres) {
       switch (props.stage) {
-      case 1:
+      case 'title':
         currentPres.querySelector('.pres-name').classList.add('show');
         break;
-      case 2:
+      case 'drawing':
         currentPres.querySelector('.pres-name').classList.add('show');
         currentPres.querySelector('.pres-drawing').classList.add('show');
         break; 
