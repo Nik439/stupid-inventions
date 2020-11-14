@@ -8,4 +8,4 @@ exports.getAvailableRoom = async () => {
   // await Room.updateOne({code: room.code}, { $set: { active: true} });
 
   return room;
-}
+};

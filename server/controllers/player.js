@@ -15,7 +15,7 @@ exports.getPlayersInRoom = async (roomToCheck) => {
     if (err) console.log(err);
     return players;
   });
-}
+};
 
 exports.updateProblem = async (input, name, room) => {
   try {
@@ -23,7 +23,7 @@ exports.updateProblem = async (input, name, room) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.allDone = async (room) => {
   try {
@@ -35,7 +35,7 @@ exports.allDone = async (room) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.resetDone = async (room) => {
   try {
@@ -43,7 +43,7 @@ exports.resetDone = async (room) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.updateDrawing = async (socket, drawing) => {
   try {
@@ -51,4 +51,4 @@ exports.updateDrawing = async (socket, drawing) => {
   } catch (err) {
     console.log(err);
   }
-}
+};

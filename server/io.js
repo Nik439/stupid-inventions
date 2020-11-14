@@ -1,13 +1,13 @@
-const socketIo = require("socket.io");
+const socketIo = require('socket.io');
 const player = require('./controllers/player');
 const room = require('./controllers/room');
 const problem = require('./controllers/problem');
 
-async function sio(server) {
+async function sio (server) {
   const io = socketIo(server);
 
-  io.on("connection", (socket) => {
-    console.log("New client connected", socket.id);
+  io.on('connection', (socket) => {
+    console.log('New client connected', socket.id);
 
     socket.on('host', async (name) => {
       let rm = await room.getAvailableRoom();
@@ -19,7 +19,7 @@ async function sio(server) {
         room: rm.code,
         name: name,
       });
-      socket.emit('players', [name])
+      socket.emit('players', [name]);
     });
 
     socket.on('join', async (roomToCheck, name) => {
@@ -29,7 +29,7 @@ async function sio(server) {
           socket.join(roomToCheck, () => {
             socket.emit('joinRoom', roomToCheck, false /*isHost*/ );
             players.push(name);
-            io.to(roomToCheck).emit('players', players)
+            io.to(roomToCheck).emit('players', players);
             player.postPlayer({
               socket: socket.id,
               room: roomToCheck,

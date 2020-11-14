@@ -10,4 +10,4 @@ exports.getProblem = async () => {
   } catch (err) {
     console.log(err);
   }
-}
+};
