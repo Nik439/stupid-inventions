@@ -1,130 +1,148 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {Component} from 'react';
 
-function Drawing (props) {
-  const [drawingName, setDrawingName] = useState('');
-  const [nameCount, setNameCount] = useState(0);
-  const [context, setContext] = useState({});
-  const [paint, setPaint] = useState(false);
-  const [click, setClick] = useState({
-    x: [],
-    y: [],
-    drag: []
-  });
-  const [orignialDiff, setDiff] = useState(1);
-  const contextRef = useRef({});
-  contextRef.current = context;
+class Drawing extends Component {
+  constructor (props) {
+    super();
 
-  useEffect(() => {
-    let ctx = document.getElementById('canvas').getContext('2d');
-    ctx.lineJoin = 'round';
-    ctx.lineWidth = 5;
+    this.state = {
+      submitInvention: props.submitInvention,
+      name: '',
+      nameCount: 0,
+      context: null,
+      paint: false,
+      clickX: [],
+      clickY: [],
+      clickDrag: [],
+      orignialDiff: 1,
+    };
 
-    setContext(ctx);
-    setDiff(500 / document.getElementById('canvas').offsetWidth);
-
-    document.getElementById('canvas').addEventListener('mousedown', onMouseDown);
-
-    document.getElementById('canvas').addEventListener('mousemove', onMouseMove);
-
-    document.getElementById('canvas').addEventListener('mouseup', onMouseUpLeave);
-
-    document.getElementById('canvas').addEventListener('mouseleave', onMouseUpLeave);
-
-    window.addEventListener('resize', onResize);
-
-    return (() => { //Unmount
-      document.getElementById('canvas').removeEventListener('mousedown', onMouseDown);
-
-      document.getElementById('canvas').removeEventListener('mousemove', onMouseMove);
-
-      document.getElementById('canvas').removeEventListener('mouseup', onMouseUpLeave);
-
-      document.getElementById('canvas').removeEventListener('mouseleave', onMouseUpLeave);
-
-      window.removeEventListener('resize', onResize);
-    });
-  });
-
-  function onMouseDown (e) {
-    setPaint(true);
-    addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, false);
-    draw();
+    this.addClick = this.addClick.bind(this);
+    this.draw = this.draw.bind(this);
+    this.changeColor = this.changeColor.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseUpLeave = this.onMouseUpLeave.bind(this);
+    this.onResize = this.onResize.bind(this);
   }
 
-  function onMouseMove (e) {
-    if (paint) {
-      addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, true);
-      draw();
+  componentDidMount () {    
+    let context = document.getElementById('canvas').getContext('2d');
+    context.lineJoin = 'round';
+    context.lineWidth = 5;
+
+    this.setState({
+      context: context,
+      orignialDiff: 500 / document.getElementById('canvas').offsetWidth,
+    });
+
+    document.getElementById('canvas').addEventListener('mousedown', this.onMouseDown);
+
+    document.getElementById('canvas').addEventListener('mousemove', this.onMouseMove);
+
+    document.getElementById('canvas').addEventListener('mouseup', this.onMouseUpLeave);
+
+    document.getElementById('canvas').addEventListener('mouseleave', this.onMouseUpLeave);
+
+    window.addEventListener('resize', this.onResize);
+  }
+
+  onMouseDown (e) {
+    this.setState({paint: true});
+    this.addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, false);
+    this.draw();
+  }
+
+  onMouseMove (e) {
+    if (this.state.paint) {
+      this.addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, true);
+      this.draw();
     }
   }
 
-  function onMouseUpLeave () {
-    setPaint(false);
+  onMouseUpLeave () {
+    this.setState({paint: false});
   }
 
-  function onResize () {
-    setDiff(500 / document.getElementById('canvas').offsetWidth);
-  }
-
-  function addClick (addX, addY, dragging) {
-    setClick( prevState => {
-      return ({
-        x: [...prevState.x, addX*orignialDiff],
-        y: [...prevState.y, addY*orignialDiff],
-        drag: [...prevState.drag, dragging],
-      });
+  onResize () {
+    this.setState({
+      orignialDiff: 500 / document.getElementById('canvas').offsetWidth
     });
   }
 
-  function changeColor (color, e) {
-    setContext( prevState => Object.assign(prevState.context, {strokeStyle: color}));
+  componentWillUnmount () {
+    document.getElementById('canvas').removeEventListener('mousedown', this.onMouseDown);
+
+    document.getElementById('canvas').removeEventListener('mousemove', this.onMouseMove);
+
+    document.getElementById('canvas').removeEventListener('mouseup', this.onMouseUpLeave);
+
+    document.getElementById('canvas').removeEventListener('mouseleave', this.onMouseUpLeave);
+
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  addClick (x, y, dragging) {
+    this.setState(prevState => ({
+      clickX: [...prevState.clickX, x*this.state.orignialDiff],
+      clickY: [...prevState.clickY, y*this.state.orignialDiff],
+      clickDrag: [...prevState.clickDrag, dragging]
+    }));
+  }
+
+  changeColor (color, e) {
+    this.setState(prevState => ({
+      context: Object.assign(prevState.context, {strokeStyle: color}),
+    }));
     document.querySelector('.active-color').classList.remove('active-color');
     e.target.classList.add('active-color');
   }
 
-  function draw () {
-    let i = click.x.length-1;        	
-    contextRef.current.beginPath();
-    if (click.drag[i] && i) {
-      context.moveTo(click.x[i-1], click.y[i-1]);
+  draw () {
+    let i = this.state.clickX.length-1;
+    this.state.context.beginPath();
+    if (this.state.clickDrag[i] && i) {
+      this.state.context.moveTo(this.state.clickX[i-1], this.state.clickY[i-1]);
     } else {
-      contextRef.current.moveTo(click.x[i]-1, click.y[i]);
+      this.state.context.moveTo(this.state.clickX[i]-1, this.state.clickY[i]);
     }
-    contextRef.current.lineTo(click.x[i], click.y[i]);
-    contextRef.current.closePath();
-    contextRef.current.stroke();
+    this.state.context.lineTo(this.state.clickX[i], this.state.clickY[i]);
+    this.state.context.closePath();
+    this.state.context.stroke();
   }
 
-  function handleSubmit () {
+  handleSubmit () {
     let url = document.getElementById('canvas').toDataURL('image/png');
     let drwProps = {
-      name: drawingName,
+      name: this.state.name,
       url: url
     };
-    props.submitInvention(drwProps);
+    this.state.submitInvention(drwProps);
   }
 
-  return (
-    <div className='drawing'>
-      <div className='drawing-container'>
-        <label htmlFor='name' className='drawing-label'>Invention Name</label>
-        <div className='drawing-inputs'>
-          <label className='drawing-name-count'>{nameCount}/50</label>
-          <input name='name' className='drawing-name' maxLength='50' onChange={e=>{setDrawingName(e.target.value); setNameCount(e.target.value.lenght);}} autoComplete='off' type='text' placeholder=''></input>
-          <input className='drawing-submit' onClick={handleSubmit} type='button' value='SUBMIT'></input>
-        </div>
-        <div className='drawing-space'>
-          <canvas id='canvas' className='canvas' width='500' height='500'></canvas>
-          <div className='drawing-colors'>
-            <div className='color black active-color' onClick={(e) => changeColor('#000', e)}></div>
-            <div className='color red' onClick={(e) => changeColor('#df4b26', e)}></div>
-            <div className='color green' onClick={(e) => changeColor('#228622' ,e)}></div>
-            <div className='color blue' onClick={(e) => changeColor('#3a68cc', e)}></div>
+  render () {
+    return (
+      <div className='drawing'>
+        <div className='drawing-container'>
+          <label htmlFor='name' className='drawing-label'>Invention Name</label>
+          <div className='drawing-inputs'>
+            <label className='drawing-name-count'>{this.state.nameCount}/50</label>
+            <input name='name' className='drawing-name' maxLength='50' onChange={e=>this.setState({name: e.target.value, nameCount: e.target.value.length})} autoComplete='off' type='text' placeholder=''></input>
+            <input className='drawing-submit' onClick={this.handleSubmit} type='button' value='SUBMIT'></input>
+          </div>
+          <div className='drawing-space'>
+            <canvas id='canvas' className='canvas' width='500' height='500'></canvas>
+            <div className='drawing-colors'>
+              <div className='color black active-color' onClick={(e) => this.changeColor('#000', e)}></div>
+              <div className='color red' onClick={(e) => this.changeColor('#df4b26', e)}></div>
+              <div className='color green' onClick={(e) => this.changeColor('#228622' ,e)}></div>
+              <div className='color blue' onClick={(e) => this.changeColor('#3a68cc', e)}></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Drawing;
