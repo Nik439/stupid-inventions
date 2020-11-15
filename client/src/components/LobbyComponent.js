@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function Lobby (props) {
-  useEffect(() => {
-    console.log('room: ', props.room);
-  }, []);
 
   const playersList = props.playersList.map((player, index) => {
     return (
@@ -13,7 +10,7 @@ function Lobby (props) {
 
   return (
     <div className="lobby">
-      <p>room: {props.room}</p>
+      <p className="lobby-room"><span>ROOM CODE</span>{props.room}</p>
       <div className="lobby-players-list">
         {playersList}
       </div>

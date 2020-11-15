@@ -11,7 +11,6 @@ function Vote (props) {
       setVotes(votes+1);
       props.submitVote(e.target.parentNode.querySelector('.vote-canvas').id);
       if (votes === 3) {
-        console.log('done');
         props.doneVoting();
       }
     }
