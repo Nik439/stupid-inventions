@@ -54,6 +54,8 @@ async function sio (server) {
       if (await player.allDone(roomCode)) {
         player.resetDone(roomCode);
         io.to(roomCode).emit('draw');
+      } else {
+        socket.emit('wait');
       }
     });
 
@@ -66,6 +68,8 @@ async function sio (server) {
           return drw;
         });
         io.to(roomCode).emit('present', drawings);
+      } else {
+        socket.emit('wait');
       }
     });
 

@@ -4,6 +4,7 @@ import { useLocalStorage  } from '@rehooks/local-storage';
 
 import Home from './HomeComponent';
 import Lobby from './LobbyComponent';
+import Wait from './WaitComponent';
 import Problem from './ProblemComponent';
 import Drawing from './DrawingComponent';
 import Presentation from './PresentationComponent';
@@ -48,6 +49,9 @@ function Main () {
     });
     socket.on('draw', () => {
       setGamePhase('drawing');
+    });
+    socket.on('wait', () => {
+      setGamePhase('wait');
     });
     socket.on('present', drawings => {
       setDrawingsList(drawings);
@@ -98,12 +102,10 @@ function Main () {
   }
 
   function submitProblemInput (problemInput) {
-    // setGamePhase('wait');
     socket.emit('problemSubmit', problemInput, userName, roomCode);
   }
 
   function submitInvention (drwProps) {
-    // setGamePhase('wait');
     socket.emit('drwSubmit', drwProps, roomCode);
   }
 
@@ -118,13 +120,6 @@ function Main () {
     } else if (stage === 'title' || stage === 'start') {
       socket.emit('nextStage', roomCode);
     }
-
-    // if (current+1 < drawingsList.length) {
-    //   if (stage === 'drawing') socket.emit('nextPres', roomCode);
-    //   socket.emit('nextStage', roomCode);
-    // } else {
-    //   socket.emit('donePresenting', roomCode);
-    // }
   }
 
   function submitVote (name) {
@@ -144,6 +139,10 @@ function Main () {
     case 'lobby':
       return (
         <Lobby isHost={isHost} startGame={startGame} playersList={playersList} room={roomCode}/>
+      );
+    case 'wait':
+      return (
+        <Wait/>
       );
     case 'problem':
       return (

@@ -15,7 +15,6 @@ class Drawing extends Component {
       clickY: [],
       clickDrag: [],
       orignialDiff: 1,
-      wait: false
     };
 
     this.addClick = this.addClick.bind(this);
@@ -72,17 +71,17 @@ class Drawing extends Component {
     });
   }
 
-  // componentWillUnmount () {
-  //   document.getElementById('canvas').removeEventListener('mousedown', this.onMouseDown);
+  componentWillUnmount () {
+    document.getElementById('canvas').removeEventListener('mousedown', this.onMouseDown);
 
-  //   document.getElementById('canvas').removeEventListener('mousemove', this.onMouseMove);
+    document.getElementById('canvas').removeEventListener('mousemove', this.onMouseMove);
 
-  //   document.getElementById('canvas').removeEventListener('mouseup', this.onMouseUpLeave);
+    document.getElementById('canvas').removeEventListener('mouseup', this.onMouseUpLeave);
 
-  //   document.getElementById('canvas').removeEventListener('mouseleave', this.onMouseUpLeave);
+    document.getElementById('canvas').removeEventListener('mouseleave', this.onMouseUpLeave);
 
-  //   window.removeEventListener('resize', this.onResize);
-  // }
+    window.removeEventListener('resize', this.onResize);
+  }
 
   addClick (x, y, dragging) {
     this.setState(prevState => ({
@@ -121,49 +120,30 @@ class Drawing extends Component {
         url: url
       };
       this.state.submitInvention(drwProps);
-
-      document.getElementById('canvas').removeEventListener('mousedown', this.onMouseDown);
-
-      document.getElementById('canvas').removeEventListener('mousemove', this.onMouseMove);
-
-      document.getElementById('canvas').removeEventListener('mouseup', this.onMouseUpLeave);
-
-      document.getElementById('canvas').removeEventListener('mouseleave', this.onMouseUpLeave);
-
-      window.removeEventListener('resize', this.onResize);
-      
-      this.setState({
-        wait: true
-      });
     }
   }
 
   render () {
-    console.log(this.state.wait);
     return (
-      this.state.wait
-        ?
-        <Wait/>
-        :
-        <div className='drawing'>
-          <div className='drawing-container'>
-            <label htmlFor='name' className='drawing-label'>Invention Name</label>
-            <div className='drawing-inputs'>
-              <label className='drawing-name-count'>{this.state.nameCount}/50</label>
-              <input name='name' className='drawing-name' maxLength='50' onChange={e=>this.setState({name: e.target.value, nameCount: e.target.value.length})} autoComplete='off' type='text' placeholder=''></input>
-              <input className='drawing-submit' onClick={this.handleSubmit} type='button' value='SUBMIT'></input>
-            </div>
-            <div className='drawing-space'>
-              <canvas id='canvas' className='canvas' width='500' height='500'></canvas>
-              <div className='drawing-colors'>
-                <div className='color black active-color' onClick={(e) => this.changeColor('#000', e)}></div>
-                <div className='color red' onClick={(e) => this.changeColor('#df4b26', e)}></div>
-                <div className='color green' onClick={(e) => this.changeColor('#228622' ,e)}></div>
-                <div className='color blue' onClick={(e) => this.changeColor('#3a68cc', e)}></div>
-              </div>
+      <div className='drawing'>
+        <div className='drawing-container'>
+          <label htmlFor='name' className='drawing-label'>Invention Name</label>
+          <div className='drawing-inputs'>
+            <label className='drawing-name-count'>{this.state.nameCount}/50</label>
+            <input name='name' className='drawing-name' maxLength='50' onChange={e=>this.setState({name: e.target.value, nameCount: e.target.value.length})} autoComplete='off' type='text' placeholder=''></input>
+            <input className='drawing-submit' onClick={this.handleSubmit} type='button' value='SUBMIT'></input>
+          </div>
+          <div className='drawing-space'>
+            <canvas id='canvas' className='canvas' width='500' height='500'></canvas>
+            <div className='drawing-colors'>
+              <div className='color black active-color' onClick={(e) => this.changeColor('#000', e)}></div>
+              <div className='color red' onClick={(e) => this.changeColor('#df4b26', e)}></div>
+              <div className='color green' onClick={(e) => this.changeColor('#228622' ,e)}></div>
+              <div className='color blue' onClick={(e) => this.changeColor('#3a68cc', e)}></div>
             </div>
           </div>
         </div>
+      </div>
     );
   }
 }
