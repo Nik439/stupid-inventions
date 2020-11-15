@@ -7,6 +7,7 @@ import Lobby from './LobbyComponent';
 import Problem from './ProblemComponent';
 import Drawing from './DrawingComponent';
 import Presentation from './PresentationComponent';
+import Vote from './VoteComponent';
 
 const ENDPOINT ='localhost:5000';
 const socket = socketIOClient(ENDPOINT);
@@ -22,6 +23,8 @@ function Main () {
   const [drawingsList, setDrawingsList] = useState([]);
   const [stage, setStage] = useState('start');
   const [current, setCurrent] = useState(0);
+  const [winners, setWinners] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     socket.on('roomDoesntExist', () => {
@@ -69,6 +72,14 @@ function Main () {
         return current+1;
       });
     });
+    socket.on('vote', () => {
+      setGamePhase('vote');
+    });
+    socket.on('roundEnd', (winners, leaderboard) => {
+      setWinners(winners);
+      setLeaderboard(leaderboard);
+      setGamePhase('results');
+    });
   }, []);
 
   function hostGame (name) {
@@ -98,12 +109,29 @@ function Main () {
   function changePres () {
     if (stage === 'drawing') {
       if (current+1 < drawingsList.length) {
+        socket.emit('nextStage', roomCode);
         socket.emit('nextPres', roomCode);
       } else {
         socket.emit('donePresenting', roomCode);
       }
+    } else if (stage === 'title' || stage === 'start') {
+      socket.emit('nextStage', roomCode);
     }
-    socket.emit('nextStage', roomCode);
+
+    // if (current+1 < drawingsList.length) {
+    //   if (stage === 'drawing') socket.emit('nextPres', roomCode);
+    //   socket.emit('nextStage', roomCode);
+    // } else {
+    //   socket.emit('donePresenting', roomCode);
+    // }
+  }
+
+  function submitVote (name) {
+    socket.emit('voteSubmit', name, roomCode);
+  }
+
+  function doneVoting () {
+    socket.emit('doneVoting', userName, roomCode);
   }
 
   const Game = () => {
@@ -127,6 +155,10 @@ function Main () {
     case 'presentation':
       return (
         <Presentation userName={userName} drawingsList={drawingsList} current={current} stage={stage} changePres={changePres} />
+      );
+    case 'vote':
+      return (
+        <Vote userName={userName} drawingsList={drawingsList} submitVote={submitVote} doneVoting={doneVoting}/>
       );
     default:
       return <h1>error</h1>;

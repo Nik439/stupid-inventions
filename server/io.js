@@ -82,6 +82,24 @@ async function sio (server) {
       io.to(roomCode).emit('vote');
     });
 
+    socket.on('voteSubmit', (name, roomCode) => {
+      player.upvoteDrawing(name, roomCode);
+    })
+    socket.on('doneVoting', async (name, roomCode) => {
+      await player.setDone(name, roomCode);
+      if (await player.allDone(roomCode)) {
+        player.resetDone(roomCode);
+        let leaderboard = await player.getLeaderboard(roomCode);
+        let winners = [];
+        let i = 0;
+        while (i<leaderboard.length && leaderboard[i].votes === leaderboard[0].votes) {
+          winners.push(leaderboard[i].name);
+          i++;
+        }
+        io.to(roomCode).emit('roundEnd', winners, leaderboard);
+      }
+    })
+
   });
 }
 

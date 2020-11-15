@@ -25,6 +25,14 @@ exports.updateProblem = async (input, name, room) => {
   }
 };
 
+exports.setDone = async (name, room) => {
+  try {
+    await Player.updateOne({name: name, room: room}, { $set: { done: true} });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 exports.allDone = async (room) => {
   try {
     return (await Player.find({room: room}))
@@ -51,4 +59,26 @@ exports.updateDrawing = async (socket, drawing) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+exports.upvoteDrawing = async (name, room) => {
+  try {
+    await Player.updateOne({name: name, room: room}, { $inc: { votes: 1 } });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+exports.getLeaderboard = async (room) => {
+  return (await Player.find({room: room}))
+    .map(player => {
+      let plr = {
+        name: player.name,
+        votes: player.votes
+      };
+      return plr
+    })
+    .sort((plr, next) => {
+      next.votes - plr.votes
+    });
 };
