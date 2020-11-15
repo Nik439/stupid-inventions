@@ -8,6 +8,7 @@ import Problem from './ProblemComponent';
 import Drawing from './DrawingComponent';
 import Presentation from './PresentationComponent';
 import Vote from './VoteComponent';
+import Results from './ResultsComponent';
 
 const ENDPOINT ='localhost:5000';
 const socket = socketIOClient(ENDPOINT);
@@ -159,6 +160,10 @@ function Main () {
     case 'vote':
       return (
         <Vote userName={userName} drawingsList={drawingsList} submitVote={submitVote} doneVoting={doneVoting}/>
+      );
+    case 'results':
+      return (
+        <Results winners={winners} leaderboard={leaderboard} />
       );
     default:
       return <h1>error</h1>;
