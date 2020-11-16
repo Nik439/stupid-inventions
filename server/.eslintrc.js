@@ -8,7 +8,7 @@ module.exports = {
     "parserOptions": {
         "ecmaVersion": 12
     },
-    "ignorePatterns": ["./node_modules/*.*", ".eslintrc.js"],
+    "ignorePatterns": ["./node_modules/*.*", ".eslintrc.js", "populateDb/problems.js"],
     "rules": {
         "indent": [
         "error",

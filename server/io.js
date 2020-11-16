@@ -88,7 +88,7 @@ async function sio (server) {
 
     socket.on('voteSubmit', (name, roomCode) => {
       player.upvoteDrawing(name, roomCode);
-    })
+    });
     socket.on('doneVoting', async (name, roomCode) => {
       await player.setDone(name, roomCode);
       if (await player.allDone(roomCode)) {
@@ -102,7 +102,17 @@ async function sio (server) {
         }
         io.to(roomCode).emit('roundEnd', winners, leaderboard);
       }
-    })
+    });
+
+    socket.on('disconnect', async () => {
+      console.log('Client disconnected', socket.id);
+      let plr = await player.getPlayerBySocket(socket.id);
+      let PlayersInRoom = await player.getPlayersInRoom(plr.room);
+      if (PlayersInRoom) {
+        if (PlayersInRoom.length === 1) room.updateRoom(plr.room);
+        player.removePlayer(socket.id);
+      }
+    });
 
   });
 }

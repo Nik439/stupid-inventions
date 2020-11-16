@@ -31,7 +31,7 @@ exports.setDone = async (name, room) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.allDone = async (room) => {
   try {
@@ -67,7 +67,7 @@ exports.upvoteDrawing = async (name, room) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 exports.getLeaderboard = async (room) => {
   return (await Player.find({room: room}))
@@ -76,9 +76,20 @@ exports.getLeaderboard = async (room) => {
         name: player.name,
         votes: player.votes
       };
-      return plr
+      return plr;
     })
     .sort((plr, next) => {
-      next.votes - plr.votes
+      next.votes - plr.votes;
     });
+};
+
+exports.getPlayerBySocket = async (socket) => {
+  return await Player.findOne({socket: socket}, (err, player) => {
+    if (err) console.log(err);
+    return player;
+  });
+};
+
+exports.removePlayer = (socket) => {
+  Player.deleteOne({socket: socket}, (err) => {if (err) console.log(err);});
 };

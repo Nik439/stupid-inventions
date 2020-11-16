@@ -5,7 +5,11 @@ exports.getAvailableRoom = async () => {
     { $match: { active: false } },
     { $sample: { size: 1 } }
   ]))[0];
-  // await Room.updateOne({code: room.code}, { $set: { active: true} });
+  await Room.updateOne({code: room.code}, { $set: { active: true} });
 
   return room;
+};
+
+exports.updateRoom = async (room) => {
+  await Room.updateOne({code: room}, { $set: { active: false} });
 };
