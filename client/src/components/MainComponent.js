@@ -169,8 +169,20 @@ function Main () {
     }
   };
 
+  function toggleModal () {
+    document.getElementById('modal').classList.toggle('main-modal-active');
+  }
+
   return (
     <div className='container'>
+      <img className="main-home-button" src="images/home_icon.svg" alt="home button" onClick={toggleModal}></img>
+      <div id="modal" className="main-modal" >
+        <p className="main-modal-text">Are you sure you want to return to the home page?</p>
+        <div className="main-modal-button-container">
+          <a className="main-modal-button" href="" >YES</a>
+          <a className="main-modal-button" onClick={toggleModal}>NO</a>
+        </div>
+      </div>
       <Game/>
     </div>
   );
