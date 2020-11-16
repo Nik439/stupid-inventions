@@ -107,8 +107,8 @@ async function sio (server) {
     socket.on('disconnect', async () => {
       console.log('Client disconnected', socket.id);
       let plr = await player.getPlayerBySocket(socket.id);
-      let PlayersInRoom = await player.getPlayersInRoom(plr.room);
-      if (PlayersInRoom) {
+      if (plr) {
+        let PlayersInRoom = await player.getPlayersInRoom(plr.room);
         if (PlayersInRoom.length === 1) room.updateRoom(plr.room);
         player.removePlayer(socket.id);
       }
