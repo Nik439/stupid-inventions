@@ -9,6 +9,10 @@ const port = process.env.PORT || 5000;
 const app = express();
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.get('/test', (req, res) => {
+  res.json({'hi':'HI'});
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
