@@ -12,7 +12,7 @@ import Vote from './VoteComponent';
 import Results from './ResultsComponent';
 
 // const ENDPOINT ='localhost:5000';
-const ENDPOINT ='https://secret-retreat-01527.herokuapp.com';
+const ENDPOINT ='https://stupid-inventions.herokuapp.com';
 const socket = socketIOClient(ENDPOINT);
 
 function Main () {
