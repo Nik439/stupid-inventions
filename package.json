@@ -6,5 +6,9 @@
   "author": "Nikos Cocci <coccinikos@gmail.com>",
   "license": "MIT",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "start": "cd server && node index.js",
+    "heroku-postbuild": "cd .. && cd client && yarn && yarn run build"
+  }
 }
