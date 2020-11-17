@@ -21,6 +21,8 @@ const server = http.createServer(app);
 
 sio(server);
 
-startDb().then(() => {
-  server.listen(port, () => console.log(`Listening on port ${port}`));
-});
+// startDb().then(() => {
+//   server.listen(port, () => console.log(`Listening on port ${port}`));
+// });
+
+server.listen(port, () => console.log(`Listening on port ${port}`));
