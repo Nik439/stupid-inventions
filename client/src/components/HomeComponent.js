@@ -14,7 +14,7 @@ function Home (props) {
       <div className="home-inputs">
         <input type="button" value="HOST GAME" className="home-button" onClick={() => props.hostGame(name)} ></input>
         <div className="home-join">
-          <input className="home-code" type="text" autoComplete="off" value={joinCode} onChange={e=>setJoinCode(e.target.value)} placeholder="INSERT CODE"></input>
+          <input className="home-code" maxLength="3" type="text" autoComplete="off" value={joinCode} onChange={e=>setJoinCode(e.target.value.toUpperCase())} placeholder="INSERT CODE"></input>
           <input type="button" value="JOIN GAME" className="home-button" onClick={()=>props.joinGame(joinCode, name)} ></input>
         </div>
       </div>

@@ -22,7 +22,9 @@ class Drawing extends Component {
     this.changeColor = this.changeColor.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
     this.onMouseUpLeave = this.onMouseUpLeave.bind(this);
     this.onResize = this.onResize.bind(this);
   }
@@ -38,30 +40,54 @@ class Drawing extends Component {
     });
 
     document.getElementById('canvas').addEventListener('mousedown', this.onMouseDown);
+    document.getElementById('canvas').addEventListener('touchstart', this.onTouchStart);
 
     document.getElementById('canvas').addEventListener('mousemove', this.onMouseMove);
+    document.getElementById('canvas').addEventListener('touchmove', this.onTouchMove);
 
     document.getElementById('canvas').addEventListener('mouseup', this.onMouseUpLeave);
 
     document.getElementById('canvas').addEventListener('mouseleave', this.onMouseUpLeave);
 
+    document.getElementById('canvas').addEventListener('touchend', this.onMouseUpLeave);
+
+    document.getElementById('canvas').addEventListener('touchleave', this.onMouseUpLeave);
+
     window.addEventListener('resize', this.onResize);
   }
 
   onMouseDown (e) {
+    console.log('down');
     this.setState({paint: true});
     this.addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, false);
     this.draw();
   }
 
+  onTouchStart (e) {
+    console.log('touch_start', e);
+    this.setState({paint: true});
+    this.addClick(e.touches[0].pageX - document.getElementById('canvas').offsetLeft, e.touches[0].pageY - document.getElementById('canvas').offsetTop, false);
+    this.draw();
+  }
+
   onMouseMove (e) {
+    console.log('mouse_move', e);
     if (this.state.paint) {
       this.addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, true);
       this.draw();
     }
   }
 
+  onTouchMove (e) {
+    console.log('touch_move', e);
+    if (this.state.paint) {
+      this.addClick(e.touches[0].pageX - document.getElementById('canvas').offsetLeft, e.touches[0].pageY - document.getElementById('canvas').offsetTop, true);
+      this.draw();
+    }
+  }
+
   onMouseUpLeave () {
+    console.log('up-leave');
     this.setState({paint: false});
   }
 
@@ -75,6 +101,8 @@ class Drawing extends Component {
     document.getElementById('canvas').removeEventListener('mousedown', this.onMouseDown);
 
     document.getElementById('canvas').removeEventListener('mousemove', this.onMouseMove);
+
+    document.getElementById('canvas').removeEventListener('touchmove', this.onTouchMove);
 
     document.getElementById('canvas').removeEventListener('mouseup', this.onMouseUpLeave);
 
