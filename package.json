@@ -9,6 +9,6 @@
   "devDependencies": {},
   "scripts": {
     "start": "cd server && node index.js",
-    "heroku-postbuild": "cd .. && cd client && yarn && yarn run build"
+    "heroku-postbuild": "cd client && yarn && yarn run build"
   }
 }
