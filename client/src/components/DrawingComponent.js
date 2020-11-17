@@ -57,21 +57,18 @@ class Drawing extends Component {
   }
 
   onMouseDown (e) {
-    console.log('down');
     this.setState({paint: true});
     this.addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, false);
     this.draw();
   }
 
   onTouchStart (e) {
-    console.log('touch_start', e);
     this.setState({paint: true});
     this.addClick(e.touches[0].pageX - document.getElementById('canvas').offsetLeft, e.touches[0].pageY - document.getElementById('canvas').offsetTop, false);
     this.draw();
   }
 
   onMouseMove (e) {
-    console.log('mouse_move', e);
     if (this.state.paint) {
       this.addClick(e.pageX - document.getElementById('canvas').offsetLeft, e.pageY - document.getElementById('canvas').offsetTop, true);
       this.draw();
@@ -80,7 +77,6 @@ class Drawing extends Component {
 
   onTouchMove (e) {
     e.preventDefault();
-    console.log('touch_move', e);
     if (this.state.paint) {
       this.addClick(e.touches[0].pageX - document.getElementById('canvas').offsetLeft, e.touches[0].pageY - document.getElementById('canvas').offsetTop, true);
       this.draw();
@@ -88,7 +84,6 @@ class Drawing extends Component {
   }
 
   onMouseUpLeave () {
-    console.log('up-leave');
     this.setState({paint: false});
   }
 

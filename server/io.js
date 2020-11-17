@@ -11,7 +11,7 @@ async function sio (server) {
 
     socket.on('host', async (name) => {
       let rm = await room.getAvailableRoom();
-      console.log('host on room:', rm);
+      console.log('Hosting on room:', rm.code);
       socket.join(rm.code);
       socket.emit('joinRoom', rm.code, true /*isHost*/ );
       player.postPlayer({
@@ -26,6 +26,7 @@ async function sio (server) {
       let players = (await player.getPlayersInRoom(roomToCheck)).map(plr => plr.name);
       if (players.length > 0) { //room exists
         if (!players.includes(name)) { // new player
+          console.log('Joining on room:', roomToCheck);
           socket.join(roomToCheck, () => {
             socket.emit('joinRoom', roomToCheck, false /*isHost*/ );
             players.push(name);
@@ -74,15 +75,12 @@ async function sio (server) {
     });
 
     socket.on('nextStage', roomCode => {
-      console.log('nextStage');
       io.to(roomCode).emit('nextStage');
     });
     socket.on('nextPres', roomCode => {
-      console.log('nextPres');
       io.to(roomCode).emit('nextPres');
     });
     socket.on('donePresenting', roomCode => {
-      console.log('vote');
       io.to(roomCode).emit('vote');
     });
 
