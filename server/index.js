@@ -7,7 +7,7 @@ const startDb = require('./db');
 const port = process.env.PORT || 5000;
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '/../client/build')));
 
 app.get('/test', (req, res) => {
   res.json({'hi':'HI'});
