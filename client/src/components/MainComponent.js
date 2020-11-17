@@ -11,7 +11,7 @@ import Presentation from './PresentationComponent';
 import Vote from './VoteComponent';
 import Results from './ResultsComponent';
 
-const ENDPOINT ='localhost:5000';
+const ENDPOINT ='192.168.1.92:5000';
 const socket = socketIOClient(ENDPOINT);
 
 function Main () {

@@ -292,6 +292,12 @@ body {
   width: 95vmin;
 }
 
+@media screen and (max-height: 500px) {
+  .drawing-container {
+    margin-top: 50px;
+  }
+}
+
 .drawing-label {
   font-size: 1.5em;
   font-weight: 600;
@@ -339,12 +345,13 @@ body {
 .drawing-space {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .canvas {
   background-color: white;
-  width: calc(100% - 60px);
+  width: 100%;
   max-width: 500px;
   height: auto;
   margin: 2px;
@@ -359,12 +366,12 @@ body {
   margin: 2px;
   padding: 10px;
   height: auto;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .color {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   margin-bottom: 10px;
   border: 2px solid transparent;
   border-radius: 10px;
@@ -390,6 +397,19 @@ body {
 }
 .blue {
   background-color: #3a68cc;
+}
+
+@media screen and (max-width: 600px) {
+  .drawing-colors {
+    flex-direction: row;
+  }
+
+  .color {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0px;
+    margin-right: 10px;
+  }
 }
 
 /*----PRESENTATION----*/

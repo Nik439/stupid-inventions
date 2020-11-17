@@ -79,6 +79,7 @@ class Drawing extends Component {
   }
 
   onTouchMove (e) {
+    e.preventDefault();
     console.log('touch_move', e);
     if (this.state.paint) {
       this.addClick(e.touches[0].pageX - document.getElementById('canvas').offsetLeft, e.touches[0].pageY - document.getElementById('canvas').offsetTop, true);
