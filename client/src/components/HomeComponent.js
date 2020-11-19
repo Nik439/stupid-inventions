@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../component-styles/HomeComponent.css';
 
 function Home (props) {
   const [joinCode, setJoinCode] = useState('');

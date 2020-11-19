@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../component-styles/ProblemComponent.css';
 
 function Problem (props) {
   const [problem, setProblem] = useState('');

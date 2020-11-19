@@ -11,8 +11,8 @@ import Presentation from './PresentationComponent';
 import Vote from './VoteComponent';
 import Results from './ResultsComponent';
 
-// const ENDPOINT ='localhost:5000';
-const ENDPOINT ='https://stupid-inventions.herokuapp.com';
+const ENDPOINT ='localhost:5000';
+// const ENDPOINT ='https://stupid-inventions.herokuapp.com';
 const socket = socketIOClient(ENDPOINT);
 
 function Main () {
@@ -175,7 +175,7 @@ function Main () {
   }
 
   return (
-    <div className='container'>
+    <div className='main-container'>
       <img className="main-home-button" src="images/home_icon.svg" alt="home button" onClick={toggleModal}></img>
       <div id="modal" className="main-modal" >
         <p className="main-modal-text">Are you sure you want to return to the home page?</p>

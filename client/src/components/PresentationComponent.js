@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../component-styles/PresentationComponent.css';
 
 function Presentation (props) {
   const [currentPres, setCurrentPres] = useState();

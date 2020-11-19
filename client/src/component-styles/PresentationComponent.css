@@ -1,0 +1,46 @@
+.presentation {
+  display: flex;
+  min-height: 100vh;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+.pres-container {
+  min-width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 28px;
+}
+
+.pres-player {
+  user-select: none;
+  text-align: center;
+  padding: 10px;
+}
+
+.pres-name {
+  user-select: none;
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+}
+
+.pres-drawing {
+  user-select: none;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  opacity: 0;
+}
+
+.displayed {
+  display: flex !important;
+}
+
+.show {
+  opacity: 1 !important;
+}

@@ -1,0 +1,43 @@
+.problem {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.problem-prompt {
+  text-align: center;
+  font-size: 2.5em;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.problem-input {
+  width: 95%;
+  max-width: 330px;
+  padding: 10px;
+  font-size: 1.5em;
+  border: none;
+  color: black;
+  outline: none;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.problem-input-count {
+  font-size: 20px;
+}
+
+.problem-submit {
+  background-color: #003249;
+  border: none;
+  padding: 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 1.5em;
+  outline:none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
