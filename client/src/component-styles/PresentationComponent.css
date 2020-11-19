@@ -1,11 +1,11 @@
-.presentation {
+.presentation-container {
   display: flex;
   min-height: 100vh;
   overflow-y: hidden;
   scroll-behavior: smooth;
 }
 
-.pres-container {
+.presentation-container {
   min-width: 100%;
   display: none;
   flex-direction: column;
@@ -15,20 +15,20 @@
   font-size: 28px;
 }
 
-.pres-player {
+.presentation-player {
   user-select: none;
   text-align: center;
   padding: 10px;
 }
 
-.pres-name {
+.presentation-name {
   user-select: none;
   text-align: center;
   padding: 10px;
   opacity: 0;
 }
 
-.pres-drawing {
+.presentation-drawing {
   user-select: none;
   max-width: 500px;
   width: 100%;
