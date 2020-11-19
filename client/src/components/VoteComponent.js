@@ -32,7 +32,7 @@ function Vote (props) {
   return (
     <React.Fragment>
       <p className='vote-left' id='vote-left'>Votes left: <span className='vote-coin'></span><span className='vote-coin'></span><span className='vote-coin'></span></p>
-      <div className='vote'>
+      <div className='vote-container'>
         {drawingsList}
       </div>
     </React.Fragment>

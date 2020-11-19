@@ -20,7 +20,7 @@ function Problem (props) {
   }
 
   return (
-    <form className="problem" onSubmit={e => handleSubmit(e)}>
+    <form className="problem-container" onSubmit={e => handleSubmit(e)}>
       <h2 className="problem-prompt">{problem}</h2>
       <label className="problem-input-count">{problemCount}/50</label>
       <input className="problem-input" maxLength="50" autoComplete="off" type="text" value={input} onChange={(e) => {setInput(e.target.value); setProblemCount(e.target.value.length);}} placeholder="Fill the blank"></input>

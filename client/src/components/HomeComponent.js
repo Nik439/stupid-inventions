@@ -7,7 +7,7 @@ function Home (props) {
   const [name, setName] = useState(props.name);
 
   return (
-    <div className="home">
+    <div className="home-container">
       <img className="home-logo" src="images/logo.svg" alt="logo"></img>
       {props.homeError !== '' ? <p className="home-error">{props.homeError}</p> : ''}
       <label className="home-name-count">{nameCount}/20</label>

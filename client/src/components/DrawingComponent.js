@@ -150,7 +150,7 @@ class Drawing extends Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='drawing-container'>
         <label htmlFor='name' className='drawing-label'>Invention Name</label>
         <div className='drawing-inputs'>
           <label className='drawing-name-count'>{this.state.nameCount}/50</label>
@@ -158,7 +158,7 @@ class Drawing extends Component {
           <input className='drawing-submit' onClick={this.handleSubmit} type='button' value='SUBMIT'></input>
         </div>
         <div className='drawing-space'>
-          <canvas id='canvas' className='canvas' width='500' height='500'></canvas>
+          <canvas id='canvas' className='drawing-canvas' width='500' height='500'></canvas>
           <div className='drawing-colors'>
             <div className='color black active-color' onClick={(e) => this.changeColor('#000', e)}></div>
             <div className='color red' onClick={(e) => this.changeColor('#df4b26', e)}></div>
