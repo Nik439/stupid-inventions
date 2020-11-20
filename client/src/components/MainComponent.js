@@ -180,8 +180,8 @@ function Main () {
       <div id="modal" className="main-modal" >
         <p className="main-modal-text">Are you sure you want to return to the home page?</p>
         <div className="main-modal-button-container">
-          <a className="main-modal-button" href="" >YES</a>
-          <a className="main-modal-button" onClick={toggleModal}>NO</a>
+          <a className="main-modal-button" href="/" >YES</a>
+          <p className="main-modal-button" onClick={toggleModal}>NO</p>
         </div>
       </div>
       <Game/>

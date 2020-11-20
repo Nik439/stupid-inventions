@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../component-styles/ResultsComponent.css';
 
 function Results (props) {

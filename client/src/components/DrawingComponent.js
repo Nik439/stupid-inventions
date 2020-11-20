@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Wait from './WaitComponent';
 import '../component-styles/DrawingComponent.css';
 
 class Drawing extends Component {
