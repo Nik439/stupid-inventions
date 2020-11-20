@@ -11,11 +11,15 @@
   },
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "cd client && yarn && yarn run build",
-    "lint": "eslint --ignore-path .gitignore"
+    "heroku-postbuild": "cd client && npm i && npm run build",
+    "lint": "eslint --ignore-path .gitignore",
+    "test": "npm run test:watch",
+    "test:coverage": "jest src --coverage --passWithNoTests",
+    "test:watch": "jest src --watch"
   },
   "devDependencies": {
     "eslint": "^7.13.0",
-    "eslint-config-prettier": "^6.15.0"
+    "eslint-config-prettier": "^6.15.0",
+    "jest": "^26.6.3"
   }
 }

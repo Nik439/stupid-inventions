@@ -19,7 +19,10 @@
     "format": "prettier --write .",
     "lint:client": "cd client && npm run lint",
     "lint:server": "cd server && npm run lint",
-    "lint": "run-p lint:client lint:server"
+    "lint": "run-p lint:client lint:server",
+    "test:server": "cd server && npm run test:coverage",
+    "test:client": "cd client && npm test -- --watchAll=false --passWithNoTests",
+    "test": "run-p test:server test:client"
   },
   "config": {
     "commitizen": {
