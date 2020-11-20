@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import {useLocalStorage} from '@rehooks/local-storage';
+import React, {useEffect, useState} from 'react';
 import socketIOClient from 'socket.io-client';
-import { useLocalStorage  } from '@rehooks/local-storage';
-
+import Drawing from './DrawingComponent';
 import Home from './HomeComponent';
 import Lobby from './LobbyComponent';
-import Wait from './WaitComponent';
-import Problem from './ProblemComponent';
-import Drawing from './DrawingComponent';
 import Presentation from './PresentationComponent';
-import Vote from './VoteComponent';
+import Problem from './ProblemComponent';
 import Results from './ResultsComponent';
+import Vote from './VoteComponent';
+import Wait from './WaitComponent';
 
-const ENDPOINT ='localhost:5000';
+const ENDPOINT = 'localhost:5000';
 // const ENDPOINT ='https://stupid-inventions.herokuapp.com';
 const socket = socketIOClient(ENDPOINT);
 
-function Main () {
+function Main() {
   const [gamePhase, setGamePhase] = useState('home');
   const [userName, setUser] = useLocalStorage('name', '');
   const [homeError, setHomeError] = useState('');
@@ -31,7 +30,7 @@ function Main () {
 
   useEffect(() => {
     socket.on('roomDoesntExist', () => {
-      setHomeError('Room doesn\'t exist');
+      setHomeError("Room doesn't exist");
     });
     socket.on('nameAlreadyExists', () => {
       setHomeError('Player name already taken');
@@ -59,23 +58,22 @@ function Main () {
       setGamePhase('presentation');
     });
     socket.on('nextStage', () => {
-
-      setStage (stage => {
+      setStage(stage => {
         switch (stage) {
-        case 'start':
-          return 'title';
-        case 'title':
-          return 'drawing';
-        case 'drawing':
-          return 'start';
-        default:
-          break;
+          case 'start':
+            return 'title';
+          case 'title':
+            return 'drawing';
+          case 'drawing':
+            return 'start';
+          default:
+            break;
         }
       });
     });
     socket.on('nextPres', () => {
-      setCurrent (current => {
-        return current+1;
+      setCurrent(current => {
+        return current + 1;
       });
     });
     socket.on('vote', () => {
@@ -88,31 +86,31 @@ function Main () {
     });
   }, []);
 
-  function hostGame (name) {
+  function hostGame(name) {
     setUser(name);
     socket.emit('host', name);
   }
 
-  function joinGame (roomCode, name) {
+  function joinGame(roomCode, name) {
     setUser(name);
     socket.emit('join', roomCode, name);
   }
 
-  function startGame () {
+  function startGame() {
     if (isHost) socket.emit('start', roomCode);
   }
 
-  function submitProblemInput (problemInput) {
+  function submitProblemInput(problemInput) {
     socket.emit('problemSubmit', problemInput, userName, roomCode);
   }
 
-  function submitInvention (drwProps) {
+  function submitInvention(drwProps) {
     socket.emit('drwSubmit', drwProps, roomCode);
   }
 
-  function changePres () {
+  function changePres() {
     if (stage === 'drawing') {
-      if (current+1 < drawingsList.length) {
+      if (current + 1 < drawingsList.length) {
         socket.emit('nextStage', roomCode);
         socket.emit('nextPres', roomCode);
       } else {
@@ -123,68 +121,94 @@ function Main () {
     }
   }
 
-  function submitVote (name) {
+  function submitVote(name) {
     socket.emit('voteSubmit', name, roomCode);
   }
 
-  function doneVoting () {
+  function doneVoting() {
     socket.emit('doneVoting', userName, roomCode);
   }
 
   const Game = () => {
     switch (gamePhase) {
-    case 'home':
-      return (
-        <Home name={userName} homeError={homeError} hostGame={hostGame} joinGame={joinGame}/>
-      );
-    case 'lobby':
-      return (
-        <Lobby isHost={isHost} startGame={startGame} playersList={playersList} room={roomCode}/>
-      );
-    case 'wait':
-      return (
-        <Wait/>
-      );
-    case 'problem':
-      return (
-        <Problem problem={problem} submitProblemInput={submitProblemInput} />
-      );
-    case 'drawing':
-      return (
-        <Drawing submitInvention={submitInvention}/>
-      );
-    case 'presentation':
-      return (
-        <Presentation userName={userName} drawingsList={drawingsList} current={current} stage={stage} changePres={changePres} />
-      );
-    case 'vote':
-      return (
-        <Vote userName={userName} drawingsList={drawingsList} submitVote={submitVote} doneVoting={doneVoting}/>
-      );
-    case 'results':
-      return (
-        <Results winners={winners} leaderboard={leaderboard} />
-      );
-    default:
-      return <h1>error</h1>;
+      case 'home':
+        return (
+          <Home
+            name={userName}
+            homeError={homeError}
+            hostGame={hostGame}
+            joinGame={joinGame}
+          />
+        );
+      case 'lobby':
+        return (
+          <Lobby
+            isHost={isHost}
+            startGame={startGame}
+            playersList={playersList}
+            room={roomCode}
+          />
+        );
+      case 'wait':
+        return <Wait />;
+      case 'problem':
+        return (
+          <Problem problem={problem} submitProblemInput={submitProblemInput} />
+        );
+      case 'drawing':
+        return <Drawing submitInvention={submitInvention} />;
+      case 'presentation':
+        return (
+          <Presentation
+            userName={userName}
+            drawingsList={drawingsList}
+            current={current}
+            stage={stage}
+            changePres={changePres}
+          />
+        );
+      case 'vote':
+        return (
+          <Vote
+            userName={userName}
+            drawingsList={drawingsList}
+            submitVote={submitVote}
+            doneVoting={doneVoting}
+          />
+        );
+      case 'results':
+        return <Results winners={winners} leaderboard={leaderboard} />;
+      default:
+        return <h1>error</h1>;
     }
   };
 
-  function toggleModal () {
+  function toggleModal() {
     document.getElementById('modal').classList.toggle('main-modal-active');
   }
 
   return (
-    <div className='main-container'>
-      <img className="main-home-button" src="images/home_icon.svg" alt="home button" onClick={toggleModal}></img>
-      <div id="modal" className="main-modal" >
-        <p className="main-modal-text">Are you sure you want to return to the home page?</p>
+    <div className="main-container">
+      <img
+        className="main-home-button"
+        src="images/home_icon.svg"
+        alt="home button"
+        onClick={toggleModal}
+      ></img>
+      <div id="modal" className="main-modal">
+        <p className="main-modal-text">
+          Are you sure you want to return to the home page?
+        </p>
         <div className="main-modal-button-container">
-          <a className="main-modal-button" href="" >YES</a>
-          <a className="main-modal-button" onClick={toggleModal}>NO</a>
+          <a className="main-modal-button" href="">
+            YES
+          </a>
+          <a className="main-modal-button" onClick={toggleModal}>
+            NO
+          </a>
         </div>
       </div>
-      <Game/>
+      <Game />
     </div>
   );
 }

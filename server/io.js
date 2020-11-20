@@ -3,17 +3,17 @@ const player = require('./controllers/player');
 const room = require('./controllers/room');
 const problem = require('./controllers/problem');
 
-async function sio (server) {
+async function sio(server) {
   const io = socketIo(server);
 
-  io.on('connection', (socket) => {
+  io.on('connection', socket => {
     console.log('New client connected', socket.id);
 
-    socket.on('host', async (name) => {
+    socket.on('host', async name => {
       let rm = await room.getAvailableRoom();
       console.log('Hosting on room:', rm.code);
       socket.join(rm.code);
-      socket.emit('joinRoom', rm.code, true /*isHost*/ );
+      socket.emit('joinRoom', rm.code, true /*isHost*/);
       player.postPlayer({
         socket: socket.id,
         room: rm.code,
@@ -23,12 +23,16 @@ async function sio (server) {
     });
 
     socket.on('join', async (roomToCheck, name) => {
-      let players = (await player.getPlayersInRoom(roomToCheck)).map(plr => plr.name);
-      if (players.length > 0) { //room exists
-        if (!players.includes(name)) { // new player
+      let players = (await player.getPlayersInRoom(roomToCheck)).map(
+        plr => plr.name,
+      );
+      if (players.length > 0) {
+        //room exists
+        if (!players.includes(name)) {
+          // new player
           console.log('Joining on room:', roomToCheck);
           socket.join(roomToCheck, () => {
-            socket.emit('joinRoom', roomToCheck, false /*isHost*/ );
+            socket.emit('joinRoom', roomToCheck, false /*isHost*/);
             players.push(name);
             io.to(roomToCheck).emit('players', players);
             player.postPlayer({
@@ -37,15 +41,17 @@ async function sio (server) {
               name: name,
             });
           });
-        } else { //player already in room
+        } else {
+          //player already in room
           socket.emit('nameAlreadyExists');
         }
-      } else {//room doesn't exist
+      } else {
+        //room doesn't exist
         socket.emit('roomDoesntExist');
       }
     });
 
-    socket.on('start', async (roomCode) => {
+    socket.on('start', async roomCode => {
       let prob = await problem.getProblem();
       io.to(roomCode).emit('start', prob.text);
     });
@@ -65,7 +71,10 @@ async function sio (server) {
       if (await player.allDone(roomCode)) {
         player.resetDone(roomCode);
         let drawings = (await player.getPlayersInRoom(roomCode)).map(plr => {
-          let drw = Object.assign({playerName: plr.name, problem: plr.problem}, plr.drawing);
+          let drw = Object.assign(
+            {playerName: plr.name, problem: plr.problem},
+            plr.drawing,
+          );
           return drw;
         });
         io.to(roomCode).emit('present', drawings);
@@ -94,7 +103,10 @@ async function sio (server) {
         let leaderboard = await player.getLeaderboard(roomCode);
         let winners = [];
         let i = 0;
-        while (i<leaderboard.length && leaderboard[i].votes === leaderboard[0].votes) {
+        while (
+          i < leaderboard.length &&
+          leaderboard[i].votes === leaderboard[0].votes
+        ) {
           winners.push(leaderboard[i].name);
           i++;
         }
@@ -111,7 +123,6 @@ async function sio (server) {
         player.removePlayer(socket.id);
       }
     });
-
   });
 }
 

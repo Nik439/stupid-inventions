@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../component-styles/ProblemComponent.css';
 
-function Problem (props) {
+function Problem(props) {
   const [problem, setProblem] = useState('');
   const [problemCount, setProblemCount] = useState(0);
   const [input, setInput] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     let prob = props.problem.replace('#', '_____');
     setProblem(prob);
-  },[props.problem]);
+  }, [props.problem]);
 
-  function handleSubmit (e) {
+  function handleSubmit(e) {
     e.preventDefault();
     if (input !== '') {
       let probInput = props.problem.replace('#', input.toUpperCase());
@@ -23,8 +23,19 @@ function Problem (props) {
     <form className="problem-container" onSubmit={e => handleSubmit(e)}>
       <h2 className="problem-prompt">{problem}</h2>
       <label className="problem-input-count">{problemCount}/50</label>
-      <input className="problem-input" maxLength="50" autoComplete="off" type="text" value={input} onChange={(e) => {setInput(e.target.value); setProblemCount(e.target.value.length);}} placeholder="Fill the blank"></input>
-      <input className="problem-submit" type="submit" value="SUBMIT" ></input>
+      <input
+        className="problem-input"
+        maxLength="50"
+        autoComplete="off"
+        type="text"
+        value={input}
+        onChange={e => {
+          setInput(e.target.value);
+          setProblemCount(e.target.value.length);
+        }}
+        placeholder="Fill the blank"
+      ></input>
+      <input className="problem-submit" type="submit" value="SUBMIT"></input>
     </form>
   );
 }

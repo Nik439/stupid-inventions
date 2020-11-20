@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../component-styles/ResultsComponent.css';
 
-function Results (props) {
-
-  const winners = props.winners.map( (name, index) => {
+function Results(props) {
+  const winners = props.winners.map((name, index) => {
     return (
-      <h2 key={index} className="results-winner">{name}</h2>
+      <h2 key={index} className="results-winner">
+        {name}
+      </h2>
     );
   });
 
-  const leaderboard = props.leaderboard.map( (player, index) => {
+  const leaderboard = props.leaderboard.map((player, index) => {
     return (
       <tr key={index} className="results-leaderboard-cell">
         <td className="results-leaderboard-name">{player.name}</td>
@@ -20,7 +21,9 @@ function Results (props) {
 
   return (
     <div className="results-container">
-      <h1 className="results-title">{props.winners.length > 1 ? 'Winners' : 'Winner'}</h1>
+      <h1 className="results-title">
+        {props.winners.length > 1 ? 'Winners' : 'Winner'}
+      </h1>
       {winners}
 
       <table className="results-leaderboard">
