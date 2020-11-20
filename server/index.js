@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const sio = require('./io');
-const startDb = require('./db');
+const {startDb} = require('./models');
 
 const port = process.env.PORT || 5000;
 
