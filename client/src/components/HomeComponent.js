@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '../component-styles/HomeComponent.css';
 
 function Home(props) {
   const [joinCode, setJoinCode] = useState('');
@@ -8,7 +9,7 @@ function Home(props) {
   const [name, setName] = useState(props.name);
 
   return (
-    <div className="home">
+    <div className="home-container">
       <img className="home-logo" src="images/logo.svg" alt="logo"></img>
       {props.homeError !== '' ? (
         <p className="home-error">{props.homeError}</p>

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import '../component-styles/ProblemComponent.css';
 
 function Problem(props) {
   const [problem, setProblem] = useState('');
@@ -19,7 +20,7 @@ function Problem(props) {
   }
 
   return (
-    <form className="problem" onSubmit={e => handleSubmit(e)}>
+    <form className="problem-container" onSubmit={e => handleSubmit(e)}>
       <h2 className="problem-prompt">{problem}</h2>
       <label className="problem-input-count">{problemCount}/50</label>
       <input

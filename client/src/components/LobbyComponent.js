@@ -1,4 +1,5 @@
 import React from 'react';
+import '../component-styles/LobbyComponent.css';
 
 function Lobby(props) {
   const playersList = props.playersList.map((player, index) => {
@@ -10,7 +11,7 @@ function Lobby(props) {
   });
 
   return (
-    <div className="lobby">
+    <div className="lobby-container">
       <p className="lobby-room">
         <span>ROOM CODE</span>
         {props.room}

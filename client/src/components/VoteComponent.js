@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '../component-styles/VoteComponent.css';
 
 function Vote(props) {
   const [votes, setVotes] = useState(1);
@@ -43,7 +44,7 @@ function Vote(props) {
         <span className="vote-coin"></span>
         <span className="vote-coin"></span>
       </p>
-      <div className="vote">{drawingsList}</div>
+      <div className="vote-container">{drawingsList}</div>
     </React.Fragment>
   );
 }

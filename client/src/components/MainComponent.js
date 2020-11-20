@@ -1,18 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import socketIOClient from 'socket.io-client';
 import {useLocalStorage} from '@rehooks/local-storage';
-
+import React, {useEffect, useState} from 'react';
+import socketIOClient from 'socket.io-client';
+import Drawing from './DrawingComponent';
 import Home from './HomeComponent';
 import Lobby from './LobbyComponent';
-import Wait from './WaitComponent';
-import Problem from './ProblemComponent';
-import Drawing from './DrawingComponent';
 import Presentation from './PresentationComponent';
-import Vote from './VoteComponent';
+import Problem from './ProblemComponent';
 import Results from './ResultsComponent';
+import Vote from './VoteComponent';
+import Wait from './WaitComponent';
 
-// const ENDPOINT ='localhost:5000';
-const ENDPOINT = 'https://stupid-inventions.herokuapp.com';
+const ENDPOINT = 'localhost:5000';
+// const ENDPOINT ='https://stupid-inventions.herokuapp.com';
 const socket = socketIOClient(ENDPOINT);
 
 function Main() {
@@ -189,7 +188,7 @@ function Main() {
   }
 
   return (
-    <div className="container">
+    <div className="main-container">
       <img
         className="main-home-button"
         src="images/home_icon.svg"
