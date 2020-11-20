@@ -8,7 +8,7 @@ const chars = require('./codeChars');
 
 const roomSchema = new mongoose.Schema({
   code: String,
-  active: { type: Boolean, default: false }
+  active: {type: Boolean, default: false},
 });
 
 const problemSchema = new mongoose.Schema({
@@ -22,7 +22,7 @@ const Problem = mongoose.model('Problem', problemSchema);
 
 // GENERATE PROBLEM CODES ON DATABASE
 
-const postProblem = async (prob) => {
+const postProblem = async prob => {
   try {
     const problem = new Problem(prob);
     await problem.save();
@@ -34,7 +34,7 @@ const postProblem = async (prob) => {
 
 // GENERATE ROOM CODE ON DATABASE
 
-const postRoom = async (rm) => {
+const postRoom = async rm => {
   try {
     const room = new Room(rm);
     await room.save();
@@ -46,7 +46,7 @@ const postRoom = async (rm) => {
 
 // CREATE CODES FROM CHARACTERS ARRAY
 
-function codes (arr, name='', words=[]) {
+function codes(arr, name = '', words = []) {
   if (name.length === 3) {
     words.push(name);
   } else {
@@ -57,22 +57,20 @@ function codes (arr, name='', words=[]) {
   return words;
 }
 
-
-async function execute () {
+async function execute() {
   await mongoose.connect('mongodb://localhost:27017/stupid-inventions-db');
 
   codes(chars).forEach(code => {
     postRoom({
-      code: code
+      code: code,
     });
   });
 
   problems.forEach(prob => {
     postProblem({
-      text: prob
+      text: prob,
     });
   });
 }
 
 execute();
-
