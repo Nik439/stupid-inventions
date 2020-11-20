@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
-function Results (props) {
-
-  const winners = props.winners.map( (name, index) => {
+function Results(props) {
+  const winners = props.winners.map((name, index) => {
     return (
-      <h2 key={index} className="results-winner">{name}</h2>
+      <h2 key={index} className="results-winner">
+        {name}
+      </h2>
     );
   });
 
-  const leaderboard = props.leaderboard.map( (player, index) => {
+  const leaderboard = props.leaderboard.map((player, index) => {
     return (
       <tr key={index} className="lb-cell">
         <td className="lb-name">{player.name}</td>
@@ -19,7 +20,9 @@ function Results (props) {
 
   return (
     <div className="results">
-      <h1 className="results-title">{props.winners.length > 1 ? 'Winners' : 'Winner'}</h1>
+      <h1 className="results-title">
+        {props.winners.length > 1 ? 'Winners' : 'Winner'}
+      </h1>
       {winners}
 
       <table className="lb">
