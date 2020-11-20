@@ -26,7 +26,8 @@
     "test:client": "cd client && npm test -- --watchAll=false --passWithNoTests",
     "test": "run-p test:server test:client",
     "build:client": "cd client && npm run build",
-    "validate": "run-p check:format lint test build:client"
+    "validate": "run-p check:format lint test build:client",
+    "commit": "cz"
   },
   "husky": {
     "hooks": {
