@@ -1,6 +1,7 @@
 import {useLocalStorage} from '@rehooks/local-storage';
 import React, {useEffect, useState} from 'react';
 import socketIOClient from 'socket.io-client';
+import config from '../config';
 import Drawing from './DrawingComponent';
 import Home from './HomeComponent';
 import Lobby from './LobbyComponent';
@@ -10,8 +11,8 @@ import Results from './ResultsComponent';
 import Vote from './VoteComponent';
 import Wait from './WaitComponent';
 
-const ENDPOINT = 'localhost:5000';
-// const ENDPOINT ='https://stupid-inventions.herokuapp.com';
+const ENDPOINT = config.endpoint;
+
 const socket = socketIOClient(ENDPOINT);
 
 function Main() {
@@ -200,7 +201,7 @@ function Main() {
           Are you sure you want to return to the home page?
         </p>
         <div className="main-modal-button-container">
-          <a className="main-modal-button" href="/" >
+          <a className="main-modal-button" href="/">
             YES
           </a>
           <p className="main-modal-button" onClick={toggleModal}>
