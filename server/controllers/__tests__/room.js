@@ -33,3 +33,8 @@ describe('updateRoom()', () => {
     );
   });
 });
+
+afterAll(() => {
+  db.Room.aggregate.mockReset();
+  db.Room.updateOne.mockReset();
+});
