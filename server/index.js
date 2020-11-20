@@ -4,8 +4,9 @@ const path = require('path');
 const http = require('http');
 const sio = require('./io');
 const {startDb} = require('./models');
+const config = require('./config');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || config.port;
 
 const app = express();
 app.use(express.static(path.join(__dirname, '/../client/build')));
