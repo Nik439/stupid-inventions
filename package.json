@@ -6,9 +6,16 @@
   "author": "Nikos Cocci <coccinikos@gmail.com>",
   "license": "MIT",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  },
   "scripts": {
     "start": "cd server && yarn install && node index.js",
     "heroku-postbuild": "cd client && yarn install && yarn run build"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
