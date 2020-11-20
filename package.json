@@ -8,6 +8,7 @@
   "dependencies": {},
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.2.0"
   },
   "scripts": {
@@ -15,7 +16,10 @@
     "heroku-postbuild": "cd client && yarn install && yarn run build",
     "prettier": "prettier --ignore-path .gitignore \"**/*.(js|ts|json)\"",
     "check:format": "npm run prettier -- --list-different",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "lint": "run-p lint:client lint:server"
   },
   "config": {
     "commitizen": {

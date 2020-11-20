@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    "heroku-postbuild": "cd client && yarn && yarn run build",
+    "lint": "eslint --ignore-path .gitignore"
   },
   "devDependencies": {
     "eslint": "^7.13.0",
