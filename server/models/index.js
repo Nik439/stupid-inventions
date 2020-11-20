@@ -11,5 +11,8 @@ exports.db = {
 };
 
 exports.startDb = async function startDb() {
-  await mongoose.connect(config.db);
+  await mongoose.connect(config.db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 };
