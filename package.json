@@ -15,6 +15,9 @@
   },
   "scripts": {
     "start": "cd server && yarn install && node index.js",
+    "dev": "run-p dev:client dev:server",
+    "dev:client": "cd client && npm start",
+    "dev:server": "cd server && node index.js",
     "heroku-postbuild": "cd client && yarn install && yarn run build",
     "prettier": "prettier --ignore-path .gitignore \"**/*.(js|ts|json)\"",
     "check:format": "npm run prettier -- --list-different",
