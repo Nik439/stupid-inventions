@@ -18,23 +18,24 @@ function Vote(props) {
   }
 
   const drawingsList = props.drawingsList.map((drawing, index) => {
-    if (drawing.playerName != props.userName) {
+    if (drawing.playerName !== props.userName) {
       return (
-        <div
-          key={index}
-          className="vote-invention"
+        <div 
+          key={index} 
+          className='vote-invention' 
           onClick={e => handleVote(e)}
-        >
-          <h3 className="vote-title">{drawing.name}</h3>
-          <img
-            id={drawing.playerName}
-            className="vote-canvas"
-            src={drawing.url}
+         >
+          <h3 className='vote-title'>{drawing.name}</h3>
+          <img 
+            id={drawing.playerName} 
+            className='vote-canvas' src={drawing.url} 
+            alt={`${drawing.playerName}'s drawing`}
           ></img>
-          <div className="vote-counter"></div>
+          <div className='vote-counter'></div>
         </div>
       );
     }
+    return (<></>);
   });
 
   return (

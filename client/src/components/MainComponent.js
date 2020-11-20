@@ -200,12 +200,12 @@ function Main() {
           Are you sure you want to return to the home page?
         </p>
         <div className="main-modal-button-container">
-          <a className="main-modal-button" href="">
+          <a className="main-modal-button" href="/" >
             YES
           </a>
-          <a className="main-modal-button" onClick={toggleModal}>
+          <p className="main-modal-button" onClick={toggleModal}>
             NO
-          </a>
+          </p>
         </div>
       </div>
       <Game />

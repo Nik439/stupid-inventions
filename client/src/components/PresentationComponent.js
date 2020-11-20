@@ -35,27 +35,25 @@ function Presentation(props) {
   }
 
   return (
-    <div
-      id="presentation-container"
-      className="presentation-container"
+    <div 
+      id="presentation-container" 
+      className="presentation-container" 
       onClick={changeStage}
-    >
-      <div className="presentation-container">
-        <h2 className="presentation-player">
-          {props.drawingsList[props.current].playerName}
-        </h2>
-        <h3 className="presentation-player">
-          {props.drawingsList[props.current].problem}
-        </h3>
-        <h3 className="presentation-name">
-          {props.drawingsList[props.current].name}
-        </h3>
-        <img
-          className="presentation-drawing"
-          src={props.drawingsList[props.current].url}
-          alt=""
-        ></img>
-      </div>
+     >
+      <h2 className="presentation-player">
+        {props.drawingsList[props.current].playerName}
+      </h2>
+      <h3 className="presentation-player">
+        {props.drawingsList[props.current].problem}
+      </h3>
+      <h3 className="presentation-name">
+        {props.drawingsList[props.current].name}
+      </h3>
+      <img 
+        className="presentation-drawing" 
+        src={props.drawingsList[props.current].url} 
+        alt="">
+      </img>
     </div>
   );
 }
