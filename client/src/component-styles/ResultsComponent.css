@@ -43,14 +43,14 @@
   font-size: 20px;
 }
 
-.results-leaderboard-cell:first-of-type .results-leaderboard-name{
+.results-leaderboard-cell:first-of-type .results-leaderboard-name {
   background-color: #003249;
   border-right: 1px solid white;
   border-top: none;
   border-top-left-radius: 20px;
 }
 
-.results-leaderboard-cell:first-of-type .results-leaderboard-votes{
+.results-leaderboard-cell:first-of-type .results-leaderboard-votes {
   background-color: #003249;
   border-top: none;
   border-top-right-radius: 20px;

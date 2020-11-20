@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import '../component-styles/VoteComponent.css';
 
-function Vote (props) {
-
+function Vote(props) {
   const [votes, setVotes] = useState(1);
 
-  function handleVote (e) {
+  function handleVote(e) {
     if (votes <= 3) {
       document.getElementById('vote-left').children[0].remove();
-      e.target.parentNode.querySelector('.vote-counter').innerHTML += '<span class=\'vote-coin\'></span>';
-      setVotes(votes+1);
+      e.target.parentNode.querySelector('.vote-counter').innerHTML +=
+        "<span class='vote-coin'></span>";
+      setVotes(votes + 1);
       props.submitVote(e.target.parentNode.querySelector('.vote-canvas').id);
       if (votes === 3) {
         props.doneVoting();
@@ -20,9 +20,17 @@ function Vote (props) {
   const drawingsList = props.drawingsList.map((drawing, index) => {
     if (drawing.playerName !== props.userName) {
       return (
-        <div key={index} className='vote-invention' onClick={e => handleVote(e)}>
+        <div 
+          key={index} 
+          className='vote-invention' 
+          onClick={e => handleVote(e)}
+         >
           <h3 className='vote-title'>{drawing.name}</h3>
-          <img id={drawing.playerName} className='vote-canvas' src={drawing.url} alt={`${drawing.playerName}'s drawing`}></img>
+          <img 
+            id={drawing.playerName} 
+            className='vote-canvas' src={drawing.url} 
+            alt={`${drawing.playerName}'s drawing`}
+          ></img>
           <div className='vote-counter'></div>
         </div>
       );
@@ -32,12 +40,13 @@ function Vote (props) {
 
   return (
     <React.Fragment>
-      <p className='vote-left' id='vote-left'>Votes left: <span className='vote-coin'></span><span className='vote-coin'></span><span className='vote-coin'></span></p>
-      <div className='vote-container'>
-        {drawingsList}
-      </div>
+      <p className="vote-left" id="vote-left">
+        Votes left: <span className="vote-coin"></span>
+        <span className="vote-coin"></span>
+        <span className="vote-coin"></span>
+      </p>
+      <div className="vote-container">{drawingsList}</div>
     </React.Fragment>
-    
   );
 }
 

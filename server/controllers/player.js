@@ -1,6 +1,6 @@
 const Player = require('../models/player');
 
-exports.postPlayer = async (plr) => {
+exports.postPlayer = async plr => {
   try {
     const player = new Player(plr);
     await player.save();
@@ -10,7 +10,7 @@ exports.postPlayer = async (plr) => {
   }
 };
 
-exports.getPlayersInRoom = async (roomToCheck) => {
+exports.getPlayersInRoom = async roomToCheck => {
   return await Player.find({room: roomToCheck}, (err, players) => {
     if (err) console.log(err);
     return players;
@@ -19,7 +19,10 @@ exports.getPlayersInRoom = async (roomToCheck) => {
 
 exports.updateProblem = async (input, name, room) => {
   try {
-    await Player.updateOne({name: name, room: room}, { $set: { problem: input, done: true} });
+    await Player.updateOne(
+      {name: name, room: room},
+      {$set: {problem: input, done: true}},
+    );
   } catch (err) {
     console.log(err);
   }
@@ -27,13 +30,13 @@ exports.updateProblem = async (input, name, room) => {
 
 exports.setDone = async (name, room) => {
   try {
-    await Player.updateOne({name: name, room: room}, { $set: { done: true} });
+    await Player.updateOne({name: name, room: room}, {$set: {done: true}});
   } catch (err) {
     console.log(err);
   }
 };
 
-exports.allDone = async (room) => {
+exports.allDone = async room => {
   try {
     return (await Player.find({room: room}))
       .map(player => {
@@ -45,9 +48,9 @@ exports.allDone = async (room) => {
   }
 };
 
-exports.resetDone = async (room) => {
+exports.resetDone = async room => {
   try {
-    await Player.updateMany({room: room}, { $set: { done: false } });
+    await Player.updateMany({room: room}, {$set: {done: false}});
   } catch (err) {
     console.log(err);
   }
@@ -55,7 +58,10 @@ exports.resetDone = async (room) => {
 
 exports.updateDrawing = async (socket, drawing) => {
   try {
-    await Player.updateOne({socket: socket}, { $set: { drawing: drawing, done: true} });
+    await Player.updateOne(
+      {socket: socket},
+      {$set: {drawing: drawing, done: true}},
+    );
   } catch (err) {
     console.log(err);
   }
@@ -63,18 +69,18 @@ exports.updateDrawing = async (socket, drawing) => {
 
 exports.upvoteDrawing = async (name, room) => {
   try {
-    await Player.updateOne({name: name, room: room}, { $inc: { votes: 1 } });
+    await Player.updateOne({name: name, room: room}, {$inc: {votes: 1}});
   } catch (err) {
     console.log(err);
   }
 };
 
-exports.getLeaderboard = async (room) => {
+exports.getLeaderboard = async room => {
   return (await Player.find({room: room}))
     .map(player => {
       let plr = {
         name: player.name,
-        votes: player.votes
+        votes: player.votes,
       };
       return plr;
     })
@@ -83,13 +89,15 @@ exports.getLeaderboard = async (room) => {
     });
 };
 
-exports.getPlayerBySocket = async (socket) => {
+exports.getPlayerBySocket = async socket => {
   return await Player.findOne({socket: socket}, (err, player) => {
     if (err) console.log(err);
     return player;
   });
 };
 
-exports.removePlayer = (socket) => {
-  Player.deleteOne({socket: socket}, (err) => {if (err) console.log(err);});
+exports.removePlayer = socket => {
+  Player.deleteOne({socket: socket}, err => {
+    if (err) console.log(err);
+  });
 };
