@@ -51,6 +51,7 @@ function Presentation(props) {
       </h3>
       <img 
         className="presentation-drawing" 
+        aria-label="presentation-drawing"
         src={props.drawingsList[props.current].url} 
         alt="">
       </img>
