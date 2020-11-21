@@ -25,6 +25,7 @@ function Problem(props) {
       <label className="problem-input-count">{problemCount}/50</label>
       <input
         className="problem-input"
+        aria-label="problem-input"
         maxLength="50"
         autoComplete="off"
         type="text"
