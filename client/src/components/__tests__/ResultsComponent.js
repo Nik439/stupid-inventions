@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import ResultsComponent from '../components/ResultsComponent';
+import ResultsComponent from '../ResultsComponent';
 
 describe('ResultsComponent', () => {
   test('should render "winner" singular or plural depending on # of winners', () => {

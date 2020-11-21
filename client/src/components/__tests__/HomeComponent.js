@@ -1,7 +1,6 @@
+import {fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react';
-
-import Home from '../components/HomeComponent.js';
+import Home from '../HomeComponent.js';
 
 describe('Home', () => {
   test('Renders error message if present', () => {

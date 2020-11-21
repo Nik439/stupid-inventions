@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import WaitComponent from '../components/WaitComponent';
+import WaitComponent from '../WaitComponent';
 
 describe('WaitComponent', () => {
   test('should render waiting message', () => {

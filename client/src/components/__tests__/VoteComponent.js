@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from '@testing-library/react';
-import VoteComponent from '../components/VoteComponent';
+import VoteComponent from '../VoteComponent';
 
 describe('VoteComponent', () => {
   test('should render the correct amount of coins', () => {

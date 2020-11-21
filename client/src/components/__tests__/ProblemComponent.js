@@ -1,7 +1,6 @@
+import {fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react';
-
-import Problem from '../components/ProblemComponent.js';
+import Problem from '../ProblemComponent.js';
 
 describe('Problem', () => {
   test('Renders sample problem', () => {
