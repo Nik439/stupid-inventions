@@ -20,30 +20,32 @@ function Vote(props) {
   const drawingsList = props.drawingsList.map((drawing, index) => {
     if (drawing.playerName !== props.userName) {
       return (
-        <div 
-          key={index} 
-          className='vote-invention' 
+        <div
+          key={drawing.name}
+          className="vote-invention"
           onClick={e => handleVote(e)}
-         >
-          <h3 className='vote-title'>{drawing.name}</h3>
-          <img 
-            id={drawing.playerName} 
-            className='vote-canvas' src={drawing.url} 
+          data-testid="drawing"
+        >
+          <h3 className="vote-title">{drawing.name}</h3>
+          <img
+            id={drawing.playerName}
+            className="vote-canvas"
+            src={drawing.url}
             alt={`${drawing.playerName}'s drawing`}
           ></img>
-          <div className='vote-counter'></div>
+          <div className="vote-counter"></div>
         </div>
       );
     }
-    return (<></>);
+    return <></>;
   });
 
   return (
     <React.Fragment>
       <p className="vote-left" id="vote-left">
-        Votes left: <span className="vote-coin"></span>
-        <span className="vote-coin"></span>
-        <span className="vote-coin"></span>
+        Votes left: <span className="vote-coin" data-testid="coin"></span>
+        <span className="vote-coin" data-testid="coin"></span>
+        <span className="vote-coin" data-testid="coin"></span>
       </p>
       <div className="vote-container">{drawingsList}</div>
     </React.Fragment>
