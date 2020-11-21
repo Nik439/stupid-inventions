@@ -12,10 +12,12 @@ function Results(props) {
 
   const leaderboard = props.leaderboard.map((player, index) => {
     return (
-      <tr key={index} className="results-leaderboard-cell">
-        <td className="results-leaderboard-name">{player.name}</td>
-        <td className="results-leaderboard-votes">{player.votes}</td>
-      </tr>
+      <tbody data-testid="row" key={index}>
+        <tr className="results-leaderboard-cell">
+          <td className="results-leaderboard-name">{player.name}</td>
+          <td className="results-leaderboard-votes">{player.votes}</td>
+        </tr>
+      </tbody>
     );
   });
 
@@ -27,10 +29,12 @@ function Results(props) {
       {winners}
 
       <table className="results-leaderboard">
-        <tr className="results-leaderboard-cell">
-          <th className="results-leaderboard-name">NAME</th>
-          <th className="results-leaderboard-votes">VOTES</th>
-        </tr>
+        <thead>
+          <tr className="results-leaderboard-cell">
+            <th className="results-leaderboard-name">NAME</th>
+            <th className="results-leaderboard-votes">VOTES</th>
+          </tr>
+        </thead>
         {leaderboard}
       </table>
     </div>
