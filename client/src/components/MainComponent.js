@@ -1,6 +1,7 @@
 import {useLocalStorage} from '@rehooks/local-storage';
 import React, {useEffect, useState} from 'react';
 import socketIOClient from 'socket.io-client';
+import '../component-styles/MainComponent.css';
 import config from '../config';
 import Drawing from './DrawingComponent';
 import Home from './HomeComponent';

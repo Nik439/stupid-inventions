@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import '../component-styles/DrawingComponent.css';
+import Button from './Button';
+import TextInput from './TextInput';
 
 class Drawing extends Component {
   constructor(props) {
@@ -202,9 +204,8 @@ class Drawing extends Component {
           <label className="drawing-name-count">
             {this.state.nameCount}/50
           </label>
-          <input
+          <TextInput
             name="name"
-            className="drawing-name"
             maxLength="50"
             onChange={e =>
               this.setState({
@@ -215,13 +216,8 @@ class Drawing extends Component {
             autoComplete="off"
             type="text"
             placeholder=""
-          ></input>
-          <input
-            className="drawing-submit"
-            onClick={this.handleSubmit}
-            type="button"
-            value="SUBMIT"
-          ></input>
+          />
+          <Button onClick={this.handleSubmit} type="button" value="SUBMIT" />
         </div>
         <div className="drawing-space">
           <canvas

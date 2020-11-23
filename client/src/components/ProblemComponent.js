@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../component-styles/ProblemComponent.css';
+import Button from './Button';
+import TextInput from './TextInput';
 
 function Problem(props) {
   const [problem, setProblem] = useState('');
@@ -23,8 +25,7 @@ function Problem(props) {
     <form className="problem-container" onSubmit={e => handleSubmit(e)}>
       <h2 className="problem-prompt">{problem}</h2>
       <label className="problem-input-count">{problemCount}/50</label>
-      <input
-        className="problem-input"
+      <TextInput
         aria-label="problem-input"
         maxLength="50"
         autoComplete="off"
@@ -35,8 +36,8 @@ function Problem(props) {
           setProblemCount(e.target.value.length);
         }}
         placeholder="Fill the blank"
-      ></input>
-      <input className="problem-submit" type="submit" value="SUBMIT"></input>
+      />
+      <Button type="submit" value="SUBMIT" />
     </form>
   );
 }

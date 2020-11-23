@@ -18,7 +18,7 @@
   margin: 0 auto;
   text-align: center;
   padding: 15px;
-  background-color: #003249;
+  background-color: var(--color-primary);
   border-radius: 20px;
 }
 
@@ -30,8 +30,8 @@
 
 .lobby-players-list {
   flex: 1;
-  background-color: white;
-  border: 5px solid #003249;
+  background-color: var(--color-white);
+  border: 5px solid var(--color-primary);
   max-height: calc(100vh - 200px);
   margin: auto 0;
   border-radius: 20px;
@@ -43,19 +43,8 @@
   width: 100%;
   font-weight: 600;
   padding: 10px;
-  color: #003249;
+  color: var(--color-heading);
   font-size: 1.2em;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.lobby-start {
-  background-color: #003249;
-  border: none;
-  padding: 20px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 1.5em;
-  outline: none;
-  cursor: pointer;
 }

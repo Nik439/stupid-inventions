@@ -5,13 +5,13 @@
   align-items: flex-end;
   width: 100%;
   max-width: 800px;
-  margin: 20px auto;
+  margin: 2rem auto;
 }
 
 .vote-left {
-  margin: 5px;
+  margin: 0.5rem;
   align-items: center;
-  height: 35px;
+  height: 3.5rem;
   display: flex;
   font-weight: 600;
   font-size: 1.5em;
@@ -19,8 +19,8 @@
 
 .vote-invention {
   width: 100%;
-  max-width: 300px;
-  margin: 10px;
+  max-width: 30rem;
+  margin: 1rem;
 }
 
 .vote-title {
@@ -40,25 +40,25 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 30px;
+  height: 3rem;
 }
 
 .vote-coin {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25px;
-  width: 25px;
-  margin: 5px;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin: 0.5rem;
   background-color: #ffd700;
   border: 2px solid #d9a225;
-  border-radius: 15px;
+  border-radius: 1.5rem;
   box-shadow: inset 0 0 0 1px #00000044, 1px 1px 2px #00000044;
 }
 .vote-coin::before {
   content: '1';
   color: #d9a225;
   text-shadow: 0 0 0 1px #00000044;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 600;
 }

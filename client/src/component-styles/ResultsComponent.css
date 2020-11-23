@@ -8,7 +8,7 @@
 
 .results-title {
   font-size: 10vmin;
-  padding: 15px;
+  padding: 1.5rem;
   animation: suspense 1s ease;
 }
 
@@ -31,39 +31,39 @@
 }
 
 .results-leaderboard {
-  background-color: #005878;
-  padding: 20px;
-  margin-top: 50px;
+  background-color: var(--color-background);
+  padding: 2rem;
+  margin-top: 5rem;
   border-collapse: collapse;
-  border-radius: 20px;
+  border-radius: 2rem;
   animation: suspense 5s ease;
 }
 
 .results-leaderboard-cell {
-  font-size: 20px;
+  font-size: 2rem;
 }
 
 .results-leaderboard-cell:first-of-type .results-leaderboard-name {
-  background-color: #003249;
+  background-color: var(--color-primary);
   border-right: 1px solid white;
   border-top: none;
-  border-top-left-radius: 20px;
+  border-top-left-radius: 2rem;
 }
 
 .results-leaderboard-cell:first-of-type .results-leaderboard-votes {
-  background-color: #003249;
+  background-color: var(--color-primary);
   border-top: none;
-  border-top-right-radius: 20px;
+  border-top-right-radius: 2rem;
 }
 
 .results-leaderboard-name {
-  padding: 20px;
+  padding: 2rem;
   border-top: 1px solid white;
   border-right: 1px solid white;
 }
 
 .results-leaderboard-votes {
-  padding: 20px;
+  padding: 2rem;
   border-top: 1px solid white;
   text-align: center;
 }

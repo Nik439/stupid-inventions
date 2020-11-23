@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import '../component-styles/HomeComponent.css';
+import Button from './Button';
+import TextInput from './TextInput';
 
 function Home(props) {
   const [joinCode, setJoinCode] = useState('');
@@ -17,8 +19,7 @@ function Home(props) {
         ''
       )}
       <label className="home-name-count">{nameCount}/20</label>
-      <input
-        className="home-name"
+      <TextInput
         maxLength="20"
         type="text"
         autoComplete="off"
@@ -28,30 +29,22 @@ function Home(props) {
           setNameCount(e.target.value.length);
         }}
         placeholder="ENTER NAME"
-      ></input>
+      />
       <div className="home-inputs">
-        <input
-          type="button"
-          value="HOST GAME"
-          className="home-button"
-          onClick={() => props.hostGame(name)}
-        ></input>
+        <Button value="HOST GAME" onClick={() => props.hostGame(name)} />
         <div className="home-join">
-          <input
-            className="home-code"
+          <TextInput
             maxLength="3"
             type="text"
             autoComplete="off"
             value={joinCode}
             onChange={e => setJoinCode(e.target.value.toUpperCase())}
             placeholder="INSERT CODE"
-          ></input>
-          <input
-            type="button"
+          />
+          <Button
             value="JOIN GAME"
-            className="home-button"
             onClick={() => props.joinGame(joinCode, name)}
-          ></input>
+          />
         </div>
       </div>
     </div>

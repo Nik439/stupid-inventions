@@ -1,5 +1,6 @@
 import React from 'react';
 import '../component-styles/LobbyComponent.css';
+import Button from './Button';
 
 function Lobby(props) {
   const playersList = props.playersList.map((player, index) => {
@@ -17,12 +18,7 @@ function Lobby(props) {
         {props.room}
       </p>
       <div className="lobby-players-list">{playersList}</div>
-      <input
-        className="lobby-start"
-        type="button"
-        onClick={props.startGame}
-        value="START"
-      ></input>
+      <Button type="button" onClick={props.startGame} value="START" />
     </div>
   );
 }
