@@ -17,11 +17,11 @@ function Vote(props) {
     }
   }
 
-  const drawingsList = props.drawingsList.map((drawing, index) => {
+  const drawingsList = props.drawingsList.map(drawing => {
     if (drawing.playerName !== props.userName) {
       return (
         <div
-          key={drawing.name}
+          key={drawing.playerName}
           className="vote-invention"
           onClick={e => handleVote(e)}
           data-testid="drawing"
@@ -36,8 +36,7 @@ function Vote(props) {
           <div className="vote-counter"></div>
         </div>
       );
-    }
-    return <></>;
+    } else return null;
   });
 
   return (
