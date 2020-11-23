@@ -3,7 +3,6 @@ const room = require('./room');
 const problem = require('./problem');
 
 exports.onHost = async function (socket, name) {
-  console.log('called');
   let rm = await room.getAvailableRoom();
 
   console.log('Hosting on room:', rm.code);
