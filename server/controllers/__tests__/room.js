@@ -1,6 +1,5 @@
 const {db} = require('../../models');
 const mocks = require('../__mocks__/mocks');
-=======
 const {
   getAvailableRoom,
   updateRoom,
