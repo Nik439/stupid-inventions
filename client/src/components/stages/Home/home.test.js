@@ -31,6 +31,12 @@ describe('Home', () => {
 
     render(<Home name={userName} homeError={homeError} joinGame={joinGame} />);
     expect(joinGame).not.toHaveBeenCalled();
+    fireEvent.change(screen.getByPlaceholderText('ENTER NAME'), {
+      target: {value: 'TEST'},
+    });
+    fireEvent.change(screen.getByPlaceholderText('INSERT CODE'), {
+      target: {value: 'ASS'},
+    });
     fireEvent.click(screen.getByText('JOIN GAME'));
     expect(joinGame).toHaveBeenCalled();
   });

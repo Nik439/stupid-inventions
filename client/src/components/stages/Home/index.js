@@ -31,7 +31,11 @@ function Home(props) {
         placeholder="ENTER NAME"
       />
       <div className="home-inputs">
-        <Button value="HOST GAME" onClick={() => props.hostGame(name)} />
+        <Button
+          disabled={joinCode || !name}
+          value="HOST GAME"
+          onClick={() => props.hostGame(name)}
+        />
         <div className="home-join">
           <TextInput
             maxLength="3"
@@ -43,6 +47,7 @@ function Home(props) {
           />
           <Button
             value="JOIN GAME"
+            disabled={!joinCode || !name}
             onClick={() => props.joinGame(joinCode, name)}
           />
         </div>
