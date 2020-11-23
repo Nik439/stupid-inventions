@@ -217,7 +217,12 @@ class Drawing extends Component {
             type="text"
             placeholder=""
           />
-          <Button onClick={this.handleSubmit} type="button" value="SUBMIT" />
+          <Button
+            disabled={!this.state.name}
+            onClick={this.handleSubmit}
+            type="button"
+            value="SUBMIT"
+          />
         </div>
         <div className="drawing-space">
           <canvas
