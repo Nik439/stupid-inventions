@@ -1,6 +1,13 @@
 const {db} = require('../../models');
-const {getAvailableRoom, updateRoom, checkRoomStatus, updateStartGameStatus } = require('../room');
 const mocks = require('../__mocks__/mocks');
+=======
+const {
+  getAvailableRoom,
+  updateRoom,
+  checkRoomStatus,
+  updateStartGameStatus,
+} = require('../room');
+
 
 jest.mock('../../models');
 
@@ -44,9 +51,7 @@ describe('checkRoomStatus()', () => {
   test('should return the data for the room', async () => {
     const res=await checkRoomStatus(mocks.data.mockRoom);
 
-    expect(db.Room.findOne).toBeCalledWith(
-      {code: mocks.data.mockRoom},
-    );
+    expect(db.Room.findOne).toBeCalledWith({code: mocks.data.mockRoom});
     expect(res).toEqual({active: true,gameStarted: false,code: mocks.data.mockRoom});
   });
 });
