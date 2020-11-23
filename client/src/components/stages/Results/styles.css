@@ -31,7 +31,7 @@
 }
 
 .results-leaderboard {
-  background-color: var(--color-background);
+  background-color: var(--color-primary);
   padding: 2rem;
   margin-top: 5rem;
   border-collapse: collapse;
@@ -44,14 +44,14 @@
 }
 
 .results-leaderboard-cell:first-of-type .results-leaderboard-name {
-  background-color: var(--color-primary);
+  background-color: var(--color-heading);
   border-right: 1px solid white;
   border-top: none;
   border-top-left-radius: 2rem;
 }
 
 .results-leaderboard-cell:first-of-type .results-leaderboard-votes {
-  background-color: var(--color-primary);
+  background-color: var(--color-heading);
   border-top: none;
   border-top-right-radius: 2rem;
 }
