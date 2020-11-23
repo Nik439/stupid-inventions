@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../component-styles/VoteComponent.css';
+import './styles.css';
 
 function Vote(props) {
   const [votes, setVotes] = useState(1);

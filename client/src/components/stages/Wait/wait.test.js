@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
-import WaitComponent from '../WaitComponent';
+import Wait from '.';
 
-describe('WaitComponent', () => {
+describe('Wait', () => {
   test('should render waiting message', () => {
-    render(<WaitComponent />);
+    render(<Wait />);
 
     expect(screen.getByTestId('h1')).toMatchSnapshot();
   });

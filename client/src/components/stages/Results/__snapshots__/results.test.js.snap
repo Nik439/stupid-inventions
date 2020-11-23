@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsComponent should render the leaderboard 1`] = `
+exports[`Results should render the leaderboard 1`] = `
 Array [
   <tbody
     data-testid="row"

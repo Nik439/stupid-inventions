@@ -1,6 +1,6 @@
 import React from 'react';
-import '../component-styles/LobbyComponent.css';
-import Button from './Button';
+import Button from '../../ui/Button';
+import './styles.css';
 
 function Lobby(props) {
   const playersList = props.playersList.map((player, index) => {

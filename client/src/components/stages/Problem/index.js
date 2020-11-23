@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import '../component-styles/ProblemComponent.css';
-import Button from './Button';
-import TextInput from './TextInput';
+import Button from '../../ui/Button';
+import TextInput from '../../ui/TextInput';
+import './styles.css';
 
 function Problem(props) {
   const [problem, setProblem] = useState('');

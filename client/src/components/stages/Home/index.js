@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import '../component-styles/HomeComponent.css';
-import Button from './Button';
-import TextInput from './TextInput';
+import Button from '../../ui/Button';
+import TextInput from '../../ui/TextInput';
+import './styles.css';
 
 function Home(props) {
   const [joinCode, setJoinCode] = useState('');

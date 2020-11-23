@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WaitComponent should render waiting message 1`] = `
+exports[`Wait should render waiting message 1`] = `
 <h1
   class="wait-text"
   data-testid="h1"

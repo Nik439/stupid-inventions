@@ -1,5 +1,5 @@
 import React from 'react';
-import '../component-styles/ResultsComponent.css';
+import './styles.css';
 
 function Results(props) {
   const winners = props.winners.map((name, index) => {

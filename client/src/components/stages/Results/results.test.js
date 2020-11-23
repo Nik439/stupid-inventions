@@ -1,20 +1,20 @@
 import {render, screen} from '@testing-library/react';
-import ResultsComponent from '../ResultsComponent';
+import Results from '.';
 
-describe('ResultsComponent', () => {
+describe('Results', () => {
   test('should render "winner" singular or plural depending on # of winners', () => {
     let winners = ['test'];
     const board = [{name: '', votes: 3}];
 
     const {rerender} = render(
-      <ResultsComponent winners={winners} leaderboard={board} />,
+      <Results winners={winners} leaderboard={board} />,
     );
 
     expect(screen.getByText('Winner')).toBeInTheDocument();
     expect(screen.queryByText('Winners')).not.toBe();
 
     winners = ['test', 'test2'];
-    rerender(<ResultsComponent winners={winners} leaderboard={board} />);
+    rerender(<Results winners={winners} leaderboard={board} />);
 
     expect(screen.getByText('Winners')).toBeInTheDocument();
     expect(screen.queryByText('Winner')).not.toBe();
@@ -25,13 +25,13 @@ describe('ResultsComponent', () => {
     const board = [{name: '', votes: 3}];
 
     const {rerender} = render(
-      <ResultsComponent winners={winners} leaderboard={board} />,
+      <Results winners={winners} leaderboard={board} />,
     );
 
     expect(screen.getByText('test')).toBeInTheDocument();
 
     winners = ['test', 'test2'];
-    rerender(<ResultsComponent winners={winners} leaderboard={board} />);
+    rerender(<Results winners={winners} leaderboard={board} />);
 
     expect(screen.getByText('test')).toBeInTheDocument();
     expect(screen.getByText('test2')).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('ResultsComponent', () => {
       {name: 'test2', votes: 2},
     ];
 
-    render(<ResultsComponent winners={winners} leaderboard={board} />);
+    render(<Results winners={winners} leaderboard={board} />);
 
     expect(screen.queryAllByTestId('row')).toMatchSnapshot();
   });

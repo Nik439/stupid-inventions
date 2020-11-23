@@ -1,16 +1,16 @@
 import {useLocalStorage} from '@rehooks/local-storage';
 import React, {useEffect, useState} from 'react';
 import socketIOClient from 'socket.io-client';
-import '../component-styles/MainComponent.css';
-import config from '../config';
-import Drawing from './DrawingComponent';
-import Home from './HomeComponent';
-import Lobby from './LobbyComponent';
-import Presentation from './PresentationComponent';
-import Problem from './ProblemComponent';
-import Results from './ResultsComponent';
-import Vote from './VoteComponent';
-import Wait from './WaitComponent';
+import config from '../../config';
+import Drawing from '../stages/Drawing';
+import Home from '../stages/Home';
+import Lobby from '../stages/Lobby';
+import Presentation from '../stages/Presentation';
+import Problem from '../stages/Problem';
+import Results from '../stages/Results';
+import Vote from '../stages/Vote';
+import Wait from '../stages/Wait';
+import './styles.css';
 
 const ENDPOINT = config.endpoint;
 

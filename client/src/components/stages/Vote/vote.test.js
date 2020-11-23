@@ -1,12 +1,12 @@
 import {fireEvent, render, screen} from '@testing-library/react';
-import VoteComponent from '../VoteComponent';
+import Vote from '.';
 
-describe('VoteComponent', () => {
+describe('Vote', () => {
   test('should render the correct amount of coins', () => {
     const drawing = {playerName: 'a', name: 'test', url: ''};
 
     render(
-      <VoteComponent
+      <Vote
         drawingsList={[drawing]}
         submitVote={() => {}}
         doneVoting={() => {}}
@@ -28,7 +28,7 @@ describe('VoteComponent', () => {
     const drawing = {playerName, name: 'test', url: ''};
 
     render(
-      <VoteComponent
+      <Vote
         drawingsList={[drawing]}
         submitVote={() => {}}
         doneVoting={() => {}}
@@ -43,7 +43,7 @@ describe('VoteComponent', () => {
     const drawing = {playerName: 'b', name: 'test', url: ''};
 
     render(
-      <VoteComponent
+      <Vote
         drawingsList={[drawing]}
         submitVote={() => {}}
         doneVoting={() => {}}

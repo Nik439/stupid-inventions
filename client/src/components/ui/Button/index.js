@@ -1,7 +1,7 @@
-import '../component-styles/Button.css';
+import styles from './styles.module.css';
 
 const Button = props => (
-  <button className="btn" {...props}>
+  <button className={styles.btn} {...props}>
     {props.value || 'Submit'}
   </button>
 );

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import '../component-styles/DrawingComponent.css';
-import Button from './Button';
-import TextInput from './TextInput';
+import Button from '../../ui/Button';
+import TextInput from '../../ui/TextInput';
+import './styles.css';
 
 class Drawing extends Component {
   constructor(props) {

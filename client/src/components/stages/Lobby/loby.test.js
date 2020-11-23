@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
-import Lobby from '../LobbyComponent.js';
+import Lobby from '.';
 
 describe('Lobby', () => {
   test('Renders room code', () => {

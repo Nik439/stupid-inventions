@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import '../component-styles/PresentationComponent.css';
+import './styles.css';
 
 function Presentation(props) {
   const [currentPres, setCurrentPres] = useState();
@@ -35,11 +35,11 @@ function Presentation(props) {
   }
 
   return (
-    <div 
-      id="presentation-container" 
-      className="presentation-container" 
+    <div
+      id="presentation-container"
+      className="presentation-container"
       onClick={changeStage}
-     >
+    >
       <h2 className="presentation-player">
         {props.drawingsList[props.current].playerName}
       </h2>
@@ -49,12 +49,12 @@ function Presentation(props) {
       <h3 className="presentation-name">
         {props.drawingsList[props.current].name}
       </h3>
-      <img 
-        className="presentation-drawing" 
+      <img
+        className="presentation-drawing"
         aria-label="presentation-drawing"
-        src={props.drawingsList[props.current].url} 
-        alt="">
-      </img>
+        src={props.drawingsList[props.current].url}
+        alt=""
+      ></img>
     </div>
   );
 }
