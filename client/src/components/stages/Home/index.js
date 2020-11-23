@@ -40,7 +40,6 @@ function Home(props) {
           <TextInput
             maxLength="3"
             type="text"
-            autoComplete="off"
             value={joinCode}
             onChange={e => setJoinCode(e.target.value.toUpperCase())}
             placeholder="INSERT CODE"

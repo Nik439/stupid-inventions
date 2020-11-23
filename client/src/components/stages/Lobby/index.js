@@ -20,7 +20,6 @@ function Lobby(props) {
       <div className="lobby-players-list">{playersList}</div>
       <Button
         disabled={!props.isHost || props.playersList.length < 2}
-        type="button"
         onClick={props.startGame}
         value="START"
       />
