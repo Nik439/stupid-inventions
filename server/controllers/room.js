@@ -12,3 +12,11 @@ exports.getAvailableRoom = async () => {
 exports.updateRoom = async room => {
   await db.Room.updateOne({code: room}, {$set: {active: false}});
 };
+
+exports.checkRoomStatus = async room => {
+  return await db.Room.findOne({code: room});
+};
+
+exports.updateStartGameStatus = async room => {
+  await db.Room.updateOne({code: room}, {$set: {gameStarted: true}});
+};
