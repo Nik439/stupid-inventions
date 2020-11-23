@@ -36,3 +36,57 @@ a:visited {
   color: currentColor;
   outline: none;
 }
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-home-button {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.main-modal {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-white);
+  justify-content: center;
+  align-items: center;
+}
+
+.main-modal-active {
+  display: flex !important;
+}
+
+.main-modal-text {
+  font-size: 2.5rem;
+  text-align: center;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  background-color: var(--color-primary);
+}
+
+.main-modal-button-container {
+  display: flex;
+}
+
+.main-modal-button {
+  font-size: 2rem;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: var(--color-primary);
+  text-decoration: none;
+  border-radius: 1rem;
+  cursor: pointer;
+}
