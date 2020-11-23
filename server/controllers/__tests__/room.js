@@ -1,11 +1,16 @@
 const {db} = require('../../models');
 const {getAvailableRoom, updateRoom, checkRoomStatus, updateStartGameStatus } = require('../room');
+const mocks = require('../__mocks__/mocks');
 
 jest.mock('../../models');
 
-db.Room.aggregate.mockResolvedValue([{code: 'ASS', active: true}]);
+db.Room.aggregate.mockResolvedValue([{code: mocks.data.mockRoom, active: true}]);
 db.Room.updateOne.mockResolvedValue();
-db.Room.findOne.mockResolvedValue({active: true,gameStarted: false,code: 'ASS'});
+db.Room.findOne.mockResolvedValue({
+  active: true,
+  gameStarted: false,
+  code: mocks.data.mockRoom
+});
 
 describe('getAvailableRoom()', () => {
   test('should get an inactive room', async () => {
@@ -19,17 +24,17 @@ describe('getAvailableRoom()', () => {
 
   test('should return active the room', async () => {
     const room = await getAvailableRoom();
-    expect(room.code).toBe('ASS');
+    expect(room.code).toBe(mocks.data.mockRoom);
     expect(room.active).toBe(true);
   });
 });
 
 describe('updateRoom()', () => {
   test('should close the room', async () => {
-    await updateRoom('ASS');
+    await updateRoom(mocks.data.mockRoom);
 
     expect(db.Room.updateOne).toBeCalledWith(
-      {code: 'ASS'},
+      {code: mocks.data.mockRoom},
       {$set: {active: false}},
     );
   });
@@ -37,21 +42,21 @@ describe('updateRoom()', () => {
 
 describe('checkRoomStatus()', () => {
   test('should return the data for the room', async () => {
-    const res=await checkRoomStatus('ASS');
+    const res=await checkRoomStatus(mocks.data.mockRoom);
 
     expect(db.Room.findOne).toBeCalledWith(
-      {code: 'ASS'},
+      {code: mocks.data.mockRoom},
     );
-    expect(res).toEqual({active: true,gameStarted: false,code: 'ASS'});
+    expect(res).toEqual({active: true,gameStarted: false,code: mocks.data.mockRoom});
   });
 });
 
 describe('updateStartGameStatus()', () => {
   test('should set the start status of the game to true', async () => {
-    const res=await updateStartGameStatus('ASS');
+    await updateStartGameStatus(mocks.data.mockRoom);
 
     expect(db.Room.updateOne).toBeCalledWith(
-      {code: 'ASS'},
+      {code: mocks.data.mockRoom},
       {$set: {gameStarted: true}},
     );
   });

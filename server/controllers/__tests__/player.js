@@ -1,4 +1,5 @@
 const {db} = require('../../models');
+const mocks = require('../__mocks__/mocks');
 const {
   postPlayer,
   getPlayersInRoom,
@@ -14,35 +15,10 @@ const {
 
 jest.mock('../../models');
 
-const mockRoom='ASS';
-const mockProblem='I want to drive and A, at the same time';
-const mockName='John';
-const mockDrawing={
-  name:'inventionName',
-  url:'data'
-}
-const mockSocket='a1bc2DEFGhiJkL3MNOPQ';
-const mockPlayer={ 
-  votes:0,
-  done:false,
-  socket:mockSocket,
-  room:mockRoom,
-  name:'Jill',
-  problem:mockProblem}
-const mockPlayers=[
-  mockPlayer,
-  {
-  votes:1,
-  done:true,
-  socket:mockSocket,
-  room:mockRoom,
-  name:'John',
-  problem:'I want to drive and B, at the same time'}]
-
-db.Player.find.mockResolvedValue(mockPlayers);
+db.Player.find.mockResolvedValue(mocks.data.mockPlayers);
 db.Player.updateOne.mockResolvedValue();
 db.Player.updateMany.mockResolvedValue();
-db.Player.findOne.mockResolvedValue(mockPlayer);
+db.Player.findOne.mockResolvedValue(mocks.data.mockPlayer);
 db.Player.deleteOne.mockResolvedValue();
 
 const mockFn = jest.fn();
@@ -54,45 +30,45 @@ db.Player.mockImplementation(() => {
 
 describe('postPlayer()', () => {
   test('should post a player', async () => {
-    const res=await postPlayer(mockPlayer);
+    const res=await postPlayer(mocks.data.mockPlayer);
 
     expect(mockFn).toBeCalled();
-    expect(res).toBe(mockPlayer);
+    expect(res).toBe(mocks.data.mockPlayer);
   });
 });
 
 describe('getPlayersInRoom()', () => {
   test('getPlayersInRoom() should find players in a room', async () => {
-    const res=await getPlayersInRoom(mockRoom)
+    const res=await getPlayersInRoom(mocks.data.mockRoom)
 
-    expect(db.Player.find).toBeCalledWith({room: mockRoom}, expect.any(Function));
-    expect(res).toBe(mockPlayers);
+    expect(db.Player.find).toBeCalledWith({room: mocks.data.mockRoom}, expect.any(Function));
+    expect(res).toBe(mocks.data.mockPlayers);
   });
 });
 
 describe('updateProblem()', () => {
   test('updateProblem() should change the problem for a specific player', async () => {
-    const res=await updateProblem(mockProblem, mockName, mockRoom)
+    const res=await updateProblem(mocks.data.mockProblem, mocks.data.mockName, mocks.data.mockRoom)
     
     expect(db.Player.updateOne).toBeCalledWith(
-      {name: mockName, room: mockRoom},
-      {$set: {problem: mockProblem, done: true}},);
+      {name: mocks.data.mockName, room: mocks.data.mockRoom},
+      {$set: {problem: mocks.data.mockProblem, done: true}},);
   });
 });
 
 describe('setDone()', () => {
   test('setDone() should update one players done status', async () => {
-    await setDone(mockName, mockRoom)
+    await setDone(mocks.data.mockName, mocks.data.mockRoom)
     
-    expect(db.Player.updateOne).toBeCalledWith({name: mockName, room: mockRoom}, {$set: {done: true}});
+    expect(db.Player.updateOne).toBeCalledWith({name: mocks.data.mockName, room: mocks.data.mockRoom}, {$set: {done: true}});
   });
 });
 
 describe('allDone()', () => {
   test('allDone() should return false when not all players are done', async () => {
-    const res=await allDone(mockRoom)
+    const res=await allDone(mocks.data.mockRoom)
     
-    expect(db.Player.find).toBeCalledWith({room: mockRoom});
+    expect(db.Player.find).toBeCalledWith({room: mocks.data.mockRoom});
     expect(res).toBe(false);
   });
 
@@ -101,55 +77,55 @@ describe('allDone()', () => {
       { 
         votes:0,
         done:true,
-        socket:mockSocket,
-        room:mockRoom,
+        socket:mocks.data.mockSocket,
+        room:mocks.data.mockRoom,
         name:'Jill',
-        problem:mockProblem},
+        problem:mocks.data.mockProblem},
       {
       votes:1,
       done:true,
-      socket:mockSocket,
-      room:mockRoom,
+      socket:mocks.data.mockSocket,
+      room:mocks.data.mockRoom,
       name:'John',
       problem:'I want to drive and B, at the same time'}]
     db.Player.find.mockResolvedValue(mockPlayers);
 
-    const res=await allDone(mockRoom)
+    const res=await allDone(mocks.data.mockRoom)
     
-    expect(db.Player.find).toBeCalledWith({room: mockRoom});
+    expect(db.Player.find).toBeCalledWith({room: mocks.data.mockRoom});
     expect(res).toBe(true);
   });
 });
 
 describe('allDone()', () => {
   test('resetDone() updates done for an entire room', async () => {
-    await resetDone(mockRoom)
+    await resetDone(mocks.data.mockRoom)
     
-    expect(db.Player.updateMany).toBeCalledWith({room: mockRoom}, {$set: {done: false}});
+    expect(db.Player.updateMany).toBeCalledWith({room: mocks.data.mockRoom}, {$set: {done: false}});
   });
 });
 
 describe('updateDrawing()', () => {
   test('updateDrawing() sets the drawing for one player', async () => {
-    await updateDrawing(mockSocket,mockDrawing);
+    await updateDrawing(mocks.data.mockSocket,mocks.data.mockDrawing);
     
-    expect(db.Player.updateOne).toBeCalledWith({socket: mockSocket}, {$set: {drawing: mockDrawing, done: true}});
+    expect(db.Player.updateOne).toBeCalledWith({socket: mocks.data.mockSocket}, {$set: {drawing: mocks.data.mockDrawing, done: true}});
   });
 });
 
 describe('upvoteDrawing()', () => {
   test('upvoteDrawing() increases the vote for one player', async () => {
-    await upvoteDrawing(mockName,mockRoom);
+    await upvoteDrawing(mocks.data.mockName,mocks.data.mockRoom);
     
-    expect(db.Player.updateOne).toBeCalledWith({name: mockName, room: mockRoom}, {$inc: {votes: 1}});
+    expect(db.Player.updateOne).toBeCalledWith({name: mocks.data.mockName, room: mocks.data.mockRoom}, {$inc: {votes: 1}});
   });
 });
 
 describe('upvoteDrawing()', () => {
   test('getLeaderboard() gets players and sorts their names by score', async () => {
-    const res=await getLeaderboard(mockRoom);
+    const res=await getLeaderboard(mocks.data.mockRoom);
 
-    expect(db.Player.find).toBeCalledWith({room: mockRoom});
+    expect(db.Player.find).toBeCalledWith({room: mocks.data.mockRoom});
     expect(res).toEqual([{
       name: 'Jill',
       votes: 0},
@@ -160,18 +136,18 @@ describe('upvoteDrawing()', () => {
 
 describe('getPlayerBySocket()', () => {
   test('getPlayerBySocket() gets players own info', async () => {
-    const res=await getPlayerBySocket(mockSocket);
+    const res=await getPlayerBySocket(mocks.data.mockSocket);
     
-    expect(db.Player.findOne).toBeCalledWith({socket: mockSocket},expect.any(Function));
-    expect(res).toEqual(mockPlayer);
+    expect(db.Player.findOne).toBeCalledWith({socket: mocks.data.mockSocket},expect.any(Function));
+    expect(res).toEqual(mocks.data.mockPlayer);
   });
 });
 
 describe('getPlayerBySocket()', () => {
   test('removePlayer() deletes player', async () => {
-    await removePlayer(mockSocket);
+    await removePlayer(mocks.data.mockSocket);
     
-    expect(db.Player.deleteOne).toBeCalledWith({socket: mockSocket},expect.any(Function));
+    expect(db.Player.deleteOne).toBeCalledWith({socket: mocks.data.mockSocket},expect.any(Function));
   });
 });
 
