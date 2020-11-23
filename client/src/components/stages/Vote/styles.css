@@ -1,0 +1,64 @@
+.vote-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.vote-left {
+  margin: 0.5rem;
+  align-items: center;
+  height: 3.5rem;
+  display: flex;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+.vote-invention {
+  width: 100%;
+  max-width: 30rem;
+  margin: 1rem;
+}
+
+.vote-title {
+  width: 100%;
+  text-align: center;
+  hyphens: auto;
+}
+
+.vote-canvas {
+  background-color: white;
+  width: 100%;
+  height: auto;
+}
+
+.vote-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+}
+
+.vote-coin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin: 0.5rem;
+  background-color: #ffd700;
+  border: 2px solid #d9a225;
+  border-radius: 1.5rem;
+  box-shadow: inset 0 0 0 1px #00000044, 1px 1px 2px #00000044;
+}
+.vote-coin::before {
+  content: '1';
+  color: #d9a225;
+  text-shadow: 0 0 0 1px #00000044;
+  font-size: 1.5rem;
+  font-weight: 600;
+}

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Vote should render oponent images 1`] = `
+Array [
+  <div
+    class="vote-invention"
+    data-testid="drawing"
+  >
+    <h3
+      class="vote-title"
+    >
+      test
+    </h3>
+    <img
+      alt="b's drawing"
+      class="vote-canvas"
+      id="b"
+      src=""
+    />
+    <div
+      class="vote-counter"
+    />
+  </div>,
+]
+`;
