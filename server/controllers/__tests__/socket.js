@@ -14,6 +14,8 @@ player.getPlayersInRoom.mockResolvedValue([
   {name: 'test', problem: 'a', drawing: 'a'},
 ]);
 problem.getProblem.mockResolvedValue({text: 'a'});
+player.getLeaderboard.mockResolvedValue([{votes: 3, name: 'test'}]);
+player.getPlayerBySocket.mockResolvedValue({room: 'ASS'});
 
 describe('onHost', () => {
   const socket = {
@@ -200,11 +202,91 @@ describe('onDrawSubmit', () => {
   });
 });
 
+test('onNextStage should emit nextStage on stage change', async () => {
+  const emit = jest.fn();
+
+  const io = {
+    to: jest.fn(() => ({emit})),
+  };
+
+  await controller.onNextStage(io, 'ASS');
+
+  expect(io.to).toBeCalledWith('ASS');
+  expect(emit).toBeCalledWith('nextStage');
+});
+
+test('onNextPresentation should emit nextPres on pres change', async () => {
+  const emit = jest.fn();
+
+  const io = {
+    to: jest.fn(() => ({emit})),
+  };
+
+  await controller.onNextPresentation(io, 'ASS');
+
+  expect(io.to).toBeCalledWith('ASS');
+  expect(emit).toBeCalledWith('nextPres');
+});
+
+test('onPresentationComplete should emit vote on pres complete', async () => {
+  const emit = jest.fn();
+
+  const io = {
+    to: jest.fn(() => ({emit})),
+  };
+
+  await controller.onPresentationComplete(io, 'ASS');
+
+  expect(io.to).toBeCalledWith('ASS');
+  expect(emit).toBeCalledWith('vote');
+});
+
+test('onVoteSubmit should upvote drawing on vote', async () => {
+  await controller.onVoteSubmit('test', 'ASS');
+
+  expect(player.upvoteDrawing).toBeCalledWith('test', 'ASS');
+});
+
+describe('onVotingDone', () => {
+  const emit = jest.fn();
+
+  const io = {
+    to: jest.fn(() => ({emit})),
+  };
+
+  test('should set players done', async () => {
+    await controller.onVotingDone(io, 'test', 'ASS');
+
+    expect(player.setDone).toBeCalledWith('test', 'ASS');
+  });
+
+  test('should emit roundEnd with correct winners', async () => {
+    await controller.onVotingDone(io, 'test', 'ASS');
+
+    expect(io.to).toBeCalledWith('ASS');
+    expect(emit).toBeCalledWith(
+      'roundEnd',
+      ['test'],
+      [{votes: 3, name: 'test'}],
+    );
+  });
+});
+
+test('onDisconnect should get the player by socket', async () => {
+  await controller.onDisconnect({id: 1});
+
+  expect(player.getPlayerBySocket).toBeCalledWith(1);
+  expect(player.getPlayersInRoom).toBeCalledWith('ASS');
+  expect(room.updateRoom).toBeCalledWith('ASS');
+  expect(player.removePlayer).toBeCalledWith(1);
+});
+
 afterAll(() => {
   room.getAvailableRoom.mockReset();
   room.checkRoomStatus.mockReset();
   player.getPlayersInRoom.mockReset();
   player.allDone.mockReset();
+  player.getLeaderboard.mockReset();
   problem.getProblem.mockReset();
   console.log.mockReset();
 });
