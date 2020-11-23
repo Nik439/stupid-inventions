@@ -37,7 +37,7 @@ function Problem(props) {
         }}
         placeholder="Fill the blank"
       />
-      <Button type="submit" value="SUBMIT" />
+      <Button disabled={!problemCount} type="submit" value="SUBMIT" />
     </form>
   );
 }
