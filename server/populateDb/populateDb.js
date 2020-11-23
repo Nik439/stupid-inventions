@@ -9,7 +9,7 @@ const chars = require('./codeChars');
 const roomSchema = new mongoose.Schema({
   code: String,
   active: {type: Boolean, default: false},
-  gameStarted: {type:Boolean, default: false}
+  gameStarted: {type: Boolean, default: false},
 });
 
 const problemSchema = new mongoose.Schema({
