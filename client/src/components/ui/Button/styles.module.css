@@ -10,3 +10,8 @@
   text-decoration: none;
   color: var(--color-white);
 }
+
+.btn:disabled {
+  background-color: lightgrey;
+  cursor: not-allowed;
+}
