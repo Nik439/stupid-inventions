@@ -45,20 +45,20 @@ db.Player.updateMany.mockResolvedValue();
 db.Player.findOne.mockResolvedValue(mockPlayer);
 db.Player.deleteOne.mockResolvedValue();
 
+const mockFn = jest.fn();
+db.Player.mockImplementation(() => {
+  return {
+    save: mockFn,
+  };
+});
+
 describe('postPlayer()', () => {
-  // test('should post a player', async () => {
-  //   let test= await postPlayer({
-  //     socket: 'a1bc2DEFGhiJkL3MNOPQ',
-  //     room: 'ASS',
-  //     name: 'Player name',
-  //   });
-  //   expect(test).toEqual({
-  //     socket: 'a1bc2DEFGhiJkL3MNOPQ',
-  //     room: 'ASS',
-  //     name: 'Player name',
-  //   });
-  //   expect(db.Player.save).toBeCalled();
-  // });
+  test('should post a player', async () => {
+    const res=await postPlayer(mockPlayer);
+
+    expect(mockFn).toBeCalled();
+    expect(res).toBe(mockPlayer);
+  });
 });
 
 describe('getPlayersInRoom()', () => {
