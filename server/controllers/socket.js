@@ -3,7 +3,7 @@ const room = require('./room');
 const problem = require('./problem');
 
 exports.onHost = async function (socket, name) {
-  console.log('called')
+  console.log('called');
   let rm = await room.getAvailableRoom();
 
   console.log('Hosting on room:', rm.code);
@@ -21,8 +21,8 @@ exports.onHost = async function (socket, name) {
 };
 
 exports.onJoin = async function (io, socket, roomToCheck, name) {
-  const roomData=await room.checkRoomStatus(roomToCheck);
-  if (!roomData.active||roomData.gameStarted) {
+  const roomData = await room.checkRoomStatus(roomToCheck);
+  if (!roomData.active || roomData.gameStarted) {
     socket.emit('roomDoesntExist');
     return;
   }
