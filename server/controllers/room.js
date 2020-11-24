@@ -1,16 +1,26 @@
 const {db} = require('../models');
 
 exports.getAvailableRoom = async () => {
-  let room = (
-    await db.Room.aggregate([{$match: {active: false}}, {$sample: {size: 1}}])
-  )[0];
-  await db.Room.updateOne({code: room.code}, {$set: {active: true}});
-
-  return room;
+  let roomFound=false;
+  let roomCode;
+  while (!roomFound) {
+    roomCode='';
+    for (let i=0;i<3;i++) {
+      roomCode+=String.fromCharCode(Math.floor(Math.random()*26)+65)
+    }
+    if (!(await db.Room.findOne({code:roomCode}))) {
+      roomFound=true;
+    }
+  }
+  return await db.Room.create({code:roomCode, active:true});
 };
 
 exports.updateRoom = async room => {
-  await db.Room.updateOne({code: room}, {$set: {active: false}});
+  await db.Room.deleteOne({code: room}, function(err) {
+    if (err) {
+      console.error(err);
+    }
+  });
 };
 
 exports.checkRoomStatus = async room => {
