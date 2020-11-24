@@ -2,17 +2,16 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
 import Problem from '.';
 
+const problem = 'sample problem';
+
 describe('Problem', () => {
   test('Renders sample problem', () => {
-    const problem = 'sample problem';
-
     render(<Problem problem={problem} />);
 
-    expect(screen.getByText('sample problem')).toBeInTheDocument();
+    expect(screen.getByText(problem)).toBeInTheDocument();
   });
 
   test('Submits problem only when there has been text input', () => {
-    const problem = 'sample problem';
     const submitProblemInput = jest.fn();
 
     render(

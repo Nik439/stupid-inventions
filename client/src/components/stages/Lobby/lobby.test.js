@@ -2,21 +2,21 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
 import Lobby from '.';
 
+const isHost = true;
+const roomCode = 'FRC';
+const startGame = jest.fn();
+
 describe('Lobby', () => {
   test('Renders room code', () => {
-    const isHost = true;
     const playersList = [];
-    const roomCode = 'FRC';
-
+    
     render(<Lobby isHost={isHost} playersList={playersList} room={roomCode} />);
 
-    expect(screen.getByText('FRC')).toBeInTheDocument();
+    expect(screen.getByText(roomCode)).toBeInTheDocument();
   });
 
   test('Renders player names', () => {
-    const isHost = true;
     const playersList = ['testName1', 'testName2', 'testName3'];
-    const roomCode = 'FRC';
 
     render(<Lobby isHost={isHost} playersList={playersList} room={roomCode} />);
 
@@ -26,10 +26,7 @@ describe('Lobby', () => {
   });
 
   test('Start game works when player is host', () => {
-    const isHost = true;
     const playersList = ['testName1', 'testName2', 'testName3'];
-    const roomCode = 'FRC';
-    const startGame = jest.fn();
 
     render(
       <Lobby

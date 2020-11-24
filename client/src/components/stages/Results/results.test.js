@@ -1,5 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import Results from '.';
+import React from 'react';
 
 describe('Results', () => {
   test('should render "winner" singular or plural depending on # of winners', () => {
