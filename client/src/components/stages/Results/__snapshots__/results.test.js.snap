@@ -8,6 +8,20 @@ Array [
     <tr
       class="results-leaderboard-cell"
     >
+      <th
+        class="results-leaderboard-name"
+      >
+        NAME
+      </th>
+      <th
+        class="results-leaderboard-votes"
+      >
+        VOTES
+      </th>
+    </tr>
+    <tr
+      class="results-leaderboard-cell"
+    >
       <td
         class="results-leaderboard-name"
       >
@@ -19,10 +33,6 @@ Array [
         3
       </td>
     </tr>
-  </tbody>,
-  <tbody
-    data-testid="row"
-  >
     <tr
       class="results-leaderboard-cell"
     >
