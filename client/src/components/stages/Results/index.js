@@ -27,11 +27,13 @@ function Results(props) {
       {winners}
 
       <table className="results-leaderboard">
-        <tr className="results-leaderboard-cell">
-          <th className="results-leaderboard-name">NAME</th>
-          <th className="results-leaderboard-votes">VOTES</th>
-        </tr>
-        {leaderboard}
+        <tbody data-testid="row">
+          <tr className="results-leaderboard-cell">
+            <th className="results-leaderboard-name">NAME</th>
+            <th className="results-leaderboard-votes">VOTES</th>
+          </tr>
+          {leaderboard}
+        </tbody>
       </table>
     </div>
   );
