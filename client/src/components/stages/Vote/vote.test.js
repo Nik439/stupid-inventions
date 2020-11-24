@@ -1,10 +1,11 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import Vote from '.';
+import React from 'react';
+
+const drawing = {playerName: 'a', name: 'test', url: ''};
 
 describe('Vote', () => {
   test('should render the correct amount of coins', () => {
-    const drawing = {playerName: 'a', name: 'test', url: ''};
-
     render(
       <Vote
         drawingsList={[drawing]}
@@ -24,9 +25,6 @@ describe('Vote', () => {
   });
 
   test('should not display user image', () => {
-    const playerName = 'a';
-    const drawing = {playerName, name: 'test', url: ''};
-
     render(
       <Vote
         drawingsList={[drawing]}
@@ -36,18 +34,16 @@ describe('Vote', () => {
       />,
     );
 
-    expect(screen.queryByAltText(`${playerName}'s drawing`)).toBeNull();
+    expect(screen.queryByAltText(`a's drawing`)).toBeNull();
   });
 
   test('should render oponent images', () => {
-    const drawing = {playerName: 'b', name: 'test', url: ''};
-
     render(
       <Vote
         drawingsList={[drawing]}
         submitVote={() => {}}
         doneVoting={() => {}}
-        userName="a"
+        userName="b"
       />,
     );
 

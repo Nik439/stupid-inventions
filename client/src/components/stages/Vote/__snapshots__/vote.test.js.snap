@@ -12,9 +12,9 @@ Array [
       test
     </h3>
     <img
-      alt="b's drawing"
+      alt="a's drawing"
       class="vote-canvas"
-      id="b"
+      id="a"
       src=""
     />
     <div
