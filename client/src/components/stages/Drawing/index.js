@@ -17,6 +17,9 @@ class Drawing extends Component {
       clickY: [],
       clickDrag: [],
       orignialDiff: 1,
+      timeout: null,
+      interval: null,
+      timeRemaining: 60000,
     };
 
     this.addClick = this.addClick.bind(this);
@@ -29,6 +32,7 @@ class Drawing extends Component {
     this.onTouchMove = this.onTouchMove.bind(this);
     this.onMouseUpLeave = this.onMouseUpLeave.bind(this);
     this.onResize = this.onResize.bind(this);
+    this.onTimeoutEnd = this.onTimeoutEnd.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +76,23 @@ class Drawing extends Component {
       .addEventListener('touchleave', this.onMouseUpLeave);
 
     window.addEventListener('resize', this.onResize);
+
+    const timeout = setTimeout(() => {
+      this.onTimeoutEnd();
+    }, 60000);
+
+    const interval = setInterval(() => {
+      this.setState({timeRemaining: this.state.timeRemaining - 1000});
+    }, 1000);
+
+    this.setState({timeout, interval});
+  }
+
+  onTimeoutEnd() {
+    if (!this.state.name) {
+      this.setState({name: 'artwork'});
+    }
+    this.handleSubmit();
   }
 
   onMouseDown(e) {
@@ -128,6 +149,9 @@ class Drawing extends Component {
   }
 
   componentWillUnmount() {
+    clearTimeout(this.state.timeout);
+    clearInterval(this.state.interval);
+
     document
       .getElementById('canvas')
       .removeEventListener('mousedown', this.onMouseDown);
@@ -197,6 +221,9 @@ class Drawing extends Component {
   render() {
     return (
       <div className="drawing-container">
+        <label htmlFor="name" className="drawing-label">
+          Time Remaining: {Math.ceil(this.state.timeRemaining / 1000)}
+        </label>
         <label htmlFor="name" className="drawing-label">
           Invention Name
         </label>

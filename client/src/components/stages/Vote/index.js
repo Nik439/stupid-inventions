@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
+import useTimer from '../../../hooks/timer';
 import './styles.css';
 
 function Vote(props) {
   const [votes, setVotes] = useState(1);
+
+  const timer = useTimer(30000, props.doneVoting);
 
   function handleVote(e) {
     if (votes <= 3) {
@@ -45,6 +48,9 @@ function Vote(props) {
         Votes left: <span className="vote-coin" data-testid="coin"></span>
         <span className="vote-coin" data-testid="coin"></span>
         <span className="vote-coin" data-testid="coin"></span>
+      </p>
+      <p style={{marginLeft: '.5rem'}}>
+        Time Remaining: {Math.ceil(timer / 1000)}
       </p>
       <div className="vote-container">{drawingsList}</div>
     </React.Fragment>
