@@ -21,7 +21,7 @@ exports.onHost = async function (socket, name) {
 
 exports.onJoin = async function (io, socket, roomToCheck, name) {
   const roomData = await room.checkRoomStatus(roomToCheck);
-  if (!roomData.active || roomData.gameStarted) {
+  if (!roomData || roomData.gameStarted) {
     socket.emit('roomDoesntExist');
     return;
   }

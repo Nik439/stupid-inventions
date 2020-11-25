@@ -1,5 +1,5 @@
 exports.data={
-  mockRoom:'ASS',
+  mockRoom:'ZZZ',
   mockProblem:'I want to drive and A, at the same time',
   mockName:'John',
   mockDrawing:{
@@ -11,7 +11,7 @@ exports.data={
     votes:0,
     done:false,
     socket:'a1bc2DEFGhiJkL3MNOPQ',
-    room:'ASS',
+    room:'ZZZ',
     name:'Jill',
     problem:'I want to drive and A, at the same time'
   },
@@ -20,7 +20,7 @@ exports.data={
       votes:0,
       done:false,
       socket:'a1bc2DEFGhiJkL3MNOPQ',
-      room:'ASS',
+      room:'ZZZ',
       name:'Jill',
       problem:'I want to drive and A, at the same time'
     },
@@ -28,7 +28,7 @@ exports.data={
       votes:1,
       done:true,
       socket:'a1bc2DEFGhiJkL3MNOPQ',
-      room:'ASS',
+      room:'ZZZ',
       name:'John',
       problem:'I want to drive and B, at the same time'
     }

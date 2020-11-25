@@ -56,8 +56,8 @@ describe('onJoin', () => {
     to: jest.fn(() => ({emit})),
   };
 
-  test('should emit roomDoesntExists if the room is not active', async () => {
-    room.checkRoomStatus.mockResolvedValue({active: false});
+  test('should emit roomDoesntExists if the room doesnt exist', async () => {
+    room.checkRoomStatus.mockResolvedValue();
 
     await controller.onJoin(io, socket, mocks.data.mockRoom, mocks.data.mockName);
 

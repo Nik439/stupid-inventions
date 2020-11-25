@@ -10,28 +10,30 @@ const {
 
 jest.mock('../../models');
 
-db.Room.aggregate.mockResolvedValue([{code: mocks.data.mockRoom, active: true}]);
 db.Room.updateOne.mockResolvedValue();
-db.Room.findOne.mockResolvedValue({
-  active: true,
-  gameStarted: false,
-  code: mocks.data.mockRoom
+db.Room.deleteOne.mockResolvedValue(true);
+db.Room.findOne.mockResolvedValue(null);
+db.Room.create.mockResolvedValue({
+  code:mocks.data.mockRoom,
+  gameStarted:false,
 });
+const mockMath = Object.create(global.Math);
+mockMath.random = () => 1;
+global.Math = mockMath;
 
 describe('getAvailableRoom()', () => {
-  test('should get an inactive room', async () => {
+  test('should get an inactive room code', async () => {
     await getAvailableRoom();
 
-    expect(db.Room.aggregate).toBeCalledWith([
-      {$match: {active: false}},
-      {$sample: {size: 1}},
-    ]);
+    expect(db.Room.findOne).toBeCalledWith({code:mocks.data.mockRoom});
+
+    expect(db.Room.create).toBeCalledWith({code:mocks.data.mockRoom});
   });
 
-  test('should return active the room', async () => {
+  test('should return the room', async () => {
     const room = await getAvailableRoom();
     expect(room.code).toBe(mocks.data.mockRoom);
-    expect(room.active).toBe(true);
+    expect(room.gameStarted).toBe(false);
   });
 });
 
@@ -39,19 +41,18 @@ describe('updateRoom()', () => {
   test('should close the room', async () => {
     await updateRoom(mocks.data.mockRoom);
 
-    expect(db.Room.updateOne).toBeCalledWith(
-      {code: mocks.data.mockRoom},
-      {$set: {active: false}},
-    );
+    expect(db.Room.deleteOne).toBeCalledWith({code: mocks.data.mockRoom}, expect.any(Function));
   });
 });
 
 describe('checkRoomStatus()', () => {
   test('should return the data for the room', async () => {
+    db.Room.findOne.mockResolvedValue({gameStarted: false,code: mocks.data.mockRoom});
+
     const res=await checkRoomStatus(mocks.data.mockRoom);
 
     expect(db.Room.findOne).toBeCalledWith({code: mocks.data.mockRoom});
-    expect(res).toEqual({active: true,gameStarted: false,code: mocks.data.mockRoom});
+    expect(res).toEqual({gameStarted: false,code: mocks.data.mockRoom});
   });
 });
 
