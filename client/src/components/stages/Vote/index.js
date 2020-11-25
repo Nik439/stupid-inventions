@@ -30,6 +30,9 @@ function Vote(props) {
           data-testid="drawing"
         >
           <h3 className="vote-title">{drawing.name}</h3>
+          <p style={{marginBottom: '1rem'}}>
+            Click on the image below to vote for this drawing
+          </p>
           <img
             id={drawing.playerName}
             className="vote-canvas"
