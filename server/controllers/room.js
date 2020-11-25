@@ -6,13 +6,13 @@ exports.getAvailableRoom = async () => {
   while (!roomFound) {
     roomCode='';
     for (let i=0;i<3;i++) {
-      roomCode+=String.fromCharCode(Math.floor(Math.random()*26)+65)
+      roomCode+=String.fromCharCode(Math.floor(Math.random()*25.999)+65)
     }
     if (!(await db.Room.findOne({code:roomCode}))) {
       roomFound=true;
     }
   }
-  return await db.Room.create({code:roomCode, active:true});
+  return await db.Room.create({code:roomCode});
 };
 
 exports.updateRoom = async room => {

@@ -11,8 +11,8 @@ exports.db = {
 };
 
 exports.startDb = async function startDb() {
-  await mongoose.connect(config.db, {
+  await mongoose.connect('mongodb://localhost:27017/stupid-inventions-db', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  });
+  }).then(console.log('connected'));
 };
