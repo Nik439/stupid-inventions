@@ -1,285 +1,180 @@
-import React, {Component} from 'react';
+import React, {useRef, useState} from 'react';
+import useTimer from '../../../hooks/timer';
+import Canvas from '../../canvas';
 import Button from '../../ui/Button';
 import TextInput from '../../ui/TextInput';
 import './styles.css';
 
-class Drawing extends Component {
-  constructor(props) {
-    super();
+function Drawing({submitInvention}) {
+  const [name, setName] = useState('');
 
-    this.state = {
-      submitInvention: props.submitInvention,
-      name: '',
-      nameCount: 0,
-      context: null,
-      paint: false,
-      clickX: [],
-      clickY: [],
-      clickDrag: [],
-      orignialDiff: 1,
-      timeout: null,
-      interval: null,
-      timeRemaining: 60000,
-    };
+  const ref = useRef(null);
 
-    this.addClick = this.addClick.bind(this);
-    this.draw = this.draw.bind(this);
-    this.changeColor = this.changeColor.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onTouchStart = this.onTouchStart.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
-    this.onMouseUpLeave = this.onMouseUpLeave.bind(this);
-    this.onResize = this.onResize.bind(this);
-    this.onTimeoutEnd = this.onTimeoutEnd.bind(this);
-  }
-
-  componentDidMount() {
-    let context = document.getElementById('canvas').getContext('2d');
-    context.lineJoin = 'round';
-    context.lineWidth = 5;
-
-    this.setState({
-      context: context,
-      orignialDiff: 500 / document.getElementById('canvas').offsetWidth,
-    });
-
-    document
-      .getElementById('canvas')
-      .addEventListener('mousedown', this.onMouseDown);
-    document
-      .getElementById('canvas')
-      .addEventListener('touchstart', this.onTouchStart);
-
-    document
-      .getElementById('canvas')
-      .addEventListener('mousemove', this.onMouseMove);
-    document
-      .getElementById('canvas')
-      .addEventListener('touchmove', this.onTouchMove);
-
-    document
-      .getElementById('canvas')
-      .addEventListener('mouseup', this.onMouseUpLeave);
-
-    document
-      .getElementById('canvas')
-      .addEventListener('mouseleave', this.onMouseUpLeave);
-
-    document
-      .getElementById('canvas')
-      .addEventListener('touchend', this.onMouseUpLeave);
-
-    document
-      .getElementById('canvas')
-      .addEventListener('touchleave', this.onMouseUpLeave);
-
-    window.addEventListener('resize', this.onResize);
-
-    const timeout = setTimeout(() => {
-      this.onTimeoutEnd();
-    }, 60000);
-
-    const interval = setInterval(() => {
-      this.setState({timeRemaining: this.state.timeRemaining - 1000});
-    }, 1000);
-
-    this.setState({timeout, interval});
-  }
-
-  onTimeoutEnd() {
-    if (!this.state.name) {
-      this.setState({name: 'artwork'});
+  const timer = useTimer(60000, () => {
+    if (!name) {
+      setName('artwork');
     }
-    this.handleSubmit();
-  }
 
-  onMouseDown(e) {
-    this.setState({paint: true});
-    this.addClick(
-      e.pageX - document.getElementById('canvas').offsetLeft,
-      e.pageY - document.getElementById('canvas').offsetTop,
-      false,
-    );
-    this.draw();
-  }
+    handleSubmit();
+  });
 
-  onTouchStart(e) {
-    this.setState({paint: true});
-    this.addClick(
-      e.touches[0].pageX - document.getElementById('canvas').offsetLeft,
-      e.touches[0].pageY - document.getElementById('canvas').offsetTop,
-      false,
-    );
-    this.draw();
-  }
+  const handleSubmit = () => {
+    if (name !== '') {
+      let url = ref.current.toDataURL('image/png');
 
-  onMouseMove(e) {
-    if (this.state.paint) {
-      this.addClick(
-        e.pageX - document.getElementById('canvas').offsetLeft,
-        e.pageY - document.getElementById('canvas').offsetTop,
-        true,
-      );
-      this.draw();
-    }
-  }
-
-  onTouchMove(e) {
-    e.preventDefault();
-    if (this.state.paint) {
-      this.addClick(
-        e.touches[0].pageX - document.getElementById('canvas').offsetLeft,
-        e.touches[0].pageY - document.getElementById('canvas').offsetTop,
-        true,
-      );
-      this.draw();
-    }
-  }
-
-  onMouseUpLeave() {
-    this.setState({paint: false});
-  }
-
-  onResize() {
-    this.setState({
-      orignialDiff: 500 / document.getElementById('canvas').offsetWidth,
-    });
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.state.timeout);
-    clearInterval(this.state.interval);
-
-    document
-      .getElementById('canvas')
-      .removeEventListener('mousedown', this.onMouseDown);
-
-    document
-      .getElementById('canvas')
-      .removeEventListener('mousemove', this.onMouseMove);
-
-    document
-      .getElementById('canvas')
-      .removeEventListener('touchmove', this.onTouchMove);
-
-    document
-      .getElementById('canvas')
-      .removeEventListener('mouseup', this.onMouseUpLeave);
-
-    document
-      .getElementById('canvas')
-      .removeEventListener('mouseleave', this.onMouseUpLeave);
-
-    window.removeEventListener('resize', this.onResize);
-  }
-
-  addClick(x, y, dragging) {
-    this.setState(prevState => ({
-      clickX: [...prevState.clickX, x * this.state.orignialDiff],
-      clickY: [...prevState.clickY, y * this.state.orignialDiff],
-      clickDrag: [...prevState.clickDrag, dragging],
-    }));
-  }
-
-  changeColor(color, e) {
-    this.setState(prevState => ({
-      context: Object.assign(prevState.context, {strokeStyle: color}),
-    }));
-    document.querySelector('.active-color').classList.remove('active-color');
-    e.target.classList.add('active-color');
-  }
-
-  draw() {
-    let i = this.state.clickX.length - 1;
-    this.state.context.beginPath();
-    if (this.state.clickDrag[i] && i) {
-      this.state.context.moveTo(
-        this.state.clickX[i - 1],
-        this.state.clickY[i - 1],
-      );
-    } else {
-      this.state.context.moveTo(this.state.clickX[i] - 1, this.state.clickY[i]);
-    }
-    this.state.context.lineTo(this.state.clickX[i], this.state.clickY[i]);
-    this.state.context.closePath();
-    this.state.context.stroke();
-  }
-
-  handleSubmit() {
-    if (this.state.name !== '') {
-      let url = document.getElementById('canvas').toDataURL('image/png');
       let drwProps = {
-        name: this.state.name,
-        url: url,
+        name,
+        url,
       };
-      this.state.submitInvention(drwProps);
-    }
-  }
 
-  render() {
-    return (
-      <div className="drawing-container">
-        <label htmlFor="name" className="drawing-label">
-          Time Remaining: {Math.ceil(this.state.timeRemaining / 1000)}
-        </label>
-        <label htmlFor="name" className="drawing-label">
-          Invention Name
-        </label>
-        <div className="drawing-inputs">
-          <label className="drawing-name-count">
-            {this.state.nameCount}/50
-          </label>
-          <TextInput
-            name="name"
-            maxLength="50"
-            onChange={e =>
-              this.setState({
-                name: e.target.value,
-                nameCount: e.target.value.length,
-              })
-            }
-            autoComplete="off"
-            type="text"
-            placeholder=""
-          />
-          <Button
-            disabled={!this.state.name}
-            onClick={this.handleSubmit}
-            type="button"
-            value="SUBMIT"
-          />
-        </div>
-        <div className="drawing-space">
-          <canvas
-            id="canvas"
-            className="drawing-canvas"
-            width="500"
-            height="500"
-          ></canvas>
-          <div className="drawing-colors">
-            <div
-              className="color black active-color"
-              onClick={e => this.changeColor('#000', e)}
-            ></div>
-            <div
-              className="color red"
-              onClick={e => this.changeColor('#df4b26', e)}
-            ></div>
-            <div
-              className="color green"
-              onClick={e => this.changeColor('#228622', e)}
-            ></div>
-            <div
-              className="color blue"
-              onClick={e => this.changeColor('#3a68cc', e)}
-            ></div>
-          </div>
-        </div>
+      submitInvention(drwProps);
+    }
+  };
+
+  return (
+    <div className="drawing-container">
+      <label htmlFor="name" className="drawing-label">
+        Time Remaining: {Math.ceil(timer / 1000)}
+      </label>
+      <label htmlFor="name" className="drawing-label">
+        Invention Name
+      </label>
+      <div className="drawing-inputs">
+        <label className="drawing-name-count">{name.length}/50</label>
+        <TextInput
+          name="name"
+          maxLength="50"
+          onChange={e => setName(e.target.value)}
+          autoComplete="off"
+          type="text"
+          placeholder=""
+        />
+        <Button
+          disabled={!name}
+          onClick={handleSubmit}
+          type="button"
+          value="SUBMIT"
+        />
       </div>
-    );
-  }
+      <Canvas refProp={ref} />
+    </div>
+  );
 }
+
+// class Drawing extends Component {
+//   constructor(props) {
+//     super();
+
+//     this.state = {
+//       submitInvention: props.submitInvention,
+//       name: '',
+//       nameCount: 0,
+//       timeout: null,
+//       interval: null,
+//       timeRemaining: 60000,
+//     };
+
+//     this.addClick = this.addClick.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//     this.onTimeoutEnd = this.onTimeoutEnd.bind(this);
+//   }
+
+//   componentDidMount() {
+//     const timeout = setTimeout(() => {
+//       this.onTimeoutEnd();
+//     }, 60000);
+
+//     const interval = setInterval(() => {
+//       this.setState({timeRemaining: this.state.timeRemaining - 1000});
+//     }, 1000);
+
+//     this.setState({timeout, interval});
+//   }
+
+//   onTimeoutEnd() {
+//     if (!this.state.name) {
+//       this.setState({name: 'artwork'});
+//     }
+//     this.handleSubmit();
+//   }
+//   componentWillUnmount() {
+//     clearTimeout(this.state.timeout);
+//     clearInterval(this.state.interval);
+//   }
+
+//   handleSubmit() {
+//     if (this.state.name !== '') {
+//       let url = document.getElementById('canvas').toDataURL('image/png');
+//       let drwProps = {
+//         name: this.state.name,
+//         url: url,
+//       };
+//       this.state.submitInvention(drwProps);
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <div className="drawing-container">
+//         <label htmlFor="name" className="drawing-label">
+//           Time Remaining: {Math.ceil(this.state.timeRemaining / 1000)}
+//         </label>
+//         <label htmlFor="name" className="drawing-label">
+//           Invention Name
+//         </label>
+//         <div className="drawing-inputs">
+//           <label className="drawing-name-count">
+//             {this.state.nameCount}/50
+//           </label>
+//           <TextInput
+//             name="name"
+//             maxLength="50"
+//             onChange={e =>
+//               this.setState({
+//                 name: e.target.value,
+//                 nameCount: e.target.value.length,
+//               })
+//             }
+//             autoComplete="off"
+//             type="text"
+//             placeholder=""
+//           />
+//           <Button
+//             disabled={!this.state.name}
+//             onClick={this.handleSubmit}
+//             type="button"
+//             value="SUBMIT"
+//           />
+//         </div>
+//         <div className="drawing-space">
+//           <canvas
+//             id="canvas"
+//             className="drawing-canvas"
+//             width="500"
+//             height="500"
+//           ></canvas>
+//           <div className="drawing-colors">
+//             <div
+//               className="color black active-color"
+//               onClick={e => this.changeColor('#000', e)}
+//             ></div>
+//             <div
+//               className="color red"
+//               onClick={e => this.changeColor('#df4b26', e)}
+//             ></div>
+//             <div
+//               className="color green"
+//               onClick={e => this.changeColor('#228622', e)}
+//             ></div>
+//             <div
+//               className="color blue"
+//               onClick={e => this.changeColor('#3a68cc', e)}
+//             ></div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
 
 export default Drawing;

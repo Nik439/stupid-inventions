@@ -5,7 +5,7 @@ import './styles.css';
 function Vote(props) {
   const [votes, setVotes] = useState(1);
 
-  const timer = useTimer(30000, props.doneVoting);
+  const timer = useTimer(30000, () => props.doneVoting());
 
   function handleVote(e) {
     if (votes <= 3) {

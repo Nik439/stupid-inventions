@@ -5,18 +5,18 @@ function useTimer(time, callback) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimer(t => t - 1000);
+      if (timer > 0) {
+        setTimer(t => t - 1000);
+      }
+
+      if (timer <= 0) {
+        callback();
+      }
     }, 1000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
-
-  useEffect(() => {
-    if (timer < 0) {
-      callback();
-    }
-  }, [timer, callback]);
+  }, [callback]);
 
   return timer;
 }
