@@ -23,6 +23,13 @@ function Presentation(props) {
             .classList.add('show');
           break;
         default:
+          currentPres
+            .querySelector('.presentation-name')
+            .classList.remove('show');
+          currentPres
+            .querySelector('.presentation-drawing')
+            .classList.remove('show');
+
           break;
       }
     }
