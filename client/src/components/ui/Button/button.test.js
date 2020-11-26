@@ -2,7 +2,7 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import Button from './';
 import React from 'react';
 
-const testid='test';
+const testid = 'test';
 
 describe('Button', () => {
   test('should render value as text', () => {
@@ -14,7 +14,9 @@ describe('Button', () => {
   test('should pass html button props', () => {
     const onClick = jest.fn();
 
-    const {rerender} = render(<Button data-testid={testid} onClick={onClick} />);
+    const {rerender} = render(
+      <Button data-testid={testid} onClick={onClick} />,
+    );
 
     fireEvent.click(screen.getByTestId(testid));
 

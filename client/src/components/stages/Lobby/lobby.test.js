@@ -9,7 +9,7 @@ const startGame = jest.fn();
 describe('Lobby', () => {
   test('Renders room code', () => {
     const playersList = [];
-    
+
     render(<Lobby isHost={isHost} playersList={playersList} room={roomCode} />);
 
     expect(screen.getByText(roomCode)).toBeInTheDocument();

@@ -12,10 +12,16 @@ console.log = jest.fn();
 
 room.getAvailableRoom.mockResolvedValue({code: mocks.data.mockRoom});
 player.getPlayersInRoom.mockResolvedValue([
-  {name: mocks.data.mockName, problem: mocks.data.mockProblem, drawing: mocks.data.mockDrawing},
+  {
+    name: mocks.data.mockName,
+    problem: mocks.data.mockProblem,
+    drawing: mocks.data.mockDrawing,
+  },
 ]);
 problem.getProblem.mockResolvedValue({text: mocks.data.mockProblem});
-player.getLeaderboard.mockResolvedValue([{votes: 3, name: mocks.data.mockName}]);
+player.getLeaderboard.mockResolvedValue([
+  {votes: 3, name: mocks.data.mockName},
+]);
 player.getPlayerBySocket.mockResolvedValue({room: mocks.data.mockRoom});
 
 describe('onHost', () => {
@@ -59,7 +65,12 @@ describe('onJoin', () => {
   test('should emit roomDoesntExists if the room doesnt exist', async () => {
     room.checkRoomStatus.mockResolvedValue();
 
-    await controller.onJoin(io, socket, mocks.data.mockRoom, mocks.data.mockName);
+    await controller.onJoin(
+      io,
+      socket,
+      mocks.data.mockRoom,
+      mocks.data.mockName,
+    );
 
     expect(socket.emit).toBeCalledWith('roomDoesntExist');
   });
@@ -68,7 +79,12 @@ describe('onJoin', () => {
     room.checkRoomStatus.mockResolvedValue({active: true, gameStarted: true});
 
     socket.emit.mockClear();
-    await controller.onJoin(io, socket, mocks.data.mockRoom, mocks.data.mockName);
+    await controller.onJoin(
+      io,
+      socket,
+      mocks.data.mockRoom,
+      mocks.data.mockName,
+    );
 
     expect(socket.emit).toBeCalledWith('roomDoesntExist');
   });
@@ -77,7 +93,12 @@ describe('onJoin', () => {
     room.checkRoomStatus.mockResolvedValue({active: true, gameStarted: false});
 
     socket.emit.mockClear();
-    await controller.onJoin(io, socket, mocks.data.mockRoom, mocks.data.mockName);
+    await controller.onJoin(
+      io,
+      socket,
+      mocks.data.mockRoom,
+      mocks.data.mockName,
+    );
 
     expect(socket.emit).toBeCalledWith('nameAlreadyExists');
   });
@@ -89,7 +110,10 @@ describe('onJoin', () => {
     emit.mockClear();
     await controller.onJoin(io, socket, mocks.data.mockRoom, 'Jill');
 
-    expect(socket.join).toBeCalledWith(mocks.data.mockRoom, expect.any(Function));
+    expect(socket.join).toBeCalledWith(
+      mocks.data.mockRoom,
+      expect.any(Function),
+    );
     expect(socket.emit).toBeCalledWith('joinRoom', mocks.data.mockRoom, false);
     expect(io.to).toBeCalledWith(mocks.data.mockRoom);
     expect(emit).toBeCalledWith('players', [mocks.data.mockName, 'Jill']);
@@ -144,15 +168,31 @@ describe('onProblemSubmit', () => {
   };
 
   test('should update the player problem', async () => {
-    await controller.onProblemSubmit(io, socket, mocks.data.mockProblem, mocks.data.mockName, mocks.data.mockRoom);
+    await controller.onProblemSubmit(
+      io,
+      socket,
+      mocks.data.mockProblem,
+      mocks.data.mockName,
+      mocks.data.mockRoom,
+    );
 
-    expect(player.updateProblem).toBeCalledWith(mocks.data.mockProblem, mocks.data.mockName, mocks.data.mockRoom);
+    expect(player.updateProblem).toBeCalledWith(
+      mocks.data.mockProblem,
+      mocks.data.mockName,
+      mocks.data.mockRoom,
+    );
   });
 
   test('should emit wait if players are not done', async () => {
     player.allDone.mockResolvedValue(false);
 
-    await controller.onProblemSubmit(io, socket, mocks.data.mockProblem, mocks.data.mockName, mocks.data.mockRoom);
+    await controller.onProblemSubmit(
+      io,
+      socket,
+      mocks.data.mockProblem,
+      mocks.data.mockName,
+      mocks.data.mockRoom,
+    );
 
     expect(socket.emit).toBeCalledWith('wait');
   });
@@ -160,7 +200,13 @@ describe('onProblemSubmit', () => {
   test('should switch to draw when all players are done', async () => {
     player.allDone.mockResolvedValue(true);
 
-    await controller.onProblemSubmit(io, socket, mocks.data.mockProblem, mocks.data.mockName, mocks.data.mockRoom);
+    await controller.onProblemSubmit(
+      io,
+      socket,
+      mocks.data.mockProblem,
+      mocks.data.mockName,
+      mocks.data.mockRoom,
+    );
 
     expect(io.to).toBeCalledWith(mocks.data.mockRoom);
     expect(emit).toBeCalledWith('draw');
@@ -246,7 +292,10 @@ test('onPresentationComplete should emit vote on pres complete', async () => {
 test('onVoteSubmit should upvote drawing on vote', async () => {
   await controller.onVoteSubmit(mocks.data.mockName, mocks.data.mockRoom);
 
-  expect(player.upvoteDrawing).toBeCalledWith(mocks.data.mockName, mocks.data.mockRoom);
+  expect(player.upvoteDrawing).toBeCalledWith(
+    mocks.data.mockName,
+    mocks.data.mockRoom,
+  );
 });
 
 describe('onVotingDone', () => {
@@ -259,7 +308,10 @@ describe('onVotingDone', () => {
   test('should set players done', async () => {
     await controller.onVotingDone(io, mocks.data.mockName, mocks.data.mockRoom);
 
-    expect(player.setDone).toBeCalledWith(mocks.data.mockName, mocks.data.mockRoom);
+    expect(player.setDone).toBeCalledWith(
+      mocks.data.mockName,
+      mocks.data.mockRoom,
+    );
   });
 
   test('should emit roundEnd with correct winners', async () => {
