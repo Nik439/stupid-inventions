@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 import './App.css';
 import Game from './components/Game';
 
 function App() {
+  const ref = useRef(null);
+
   function toggleModal() {
-    document.getElementById('modal').classList.toggle('main-modal-active');
+    ref.current.classList.toggle('main-modal-active');
   }
 
   return (
@@ -16,7 +18,7 @@ function App() {
         alt="home button"
         onClick={toggleModal}
       ></img>
-      <div id="modal" className="main-modal">
+      <div id="modal" ref={ref} className="main-modal">
         <p className="main-modal-text">
           Are you sure you want to return to the home page?
         </p>

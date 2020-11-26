@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import './styles.css';
 
 function Presentation(props) {
@@ -6,13 +6,14 @@ function Presentation(props) {
 
   const owner = useMemo(
     () => props.drawingsList[props.current].playerName === props.userName,
-    [props.current],
+    [props],
   );
 
+  const containerRef = useRef(null);
+
   useEffect(() => {
-    let current = document.querySelector('.presentation-container');
-    current.classList.add('displayed');
-    setCurrentPres(current);
+    containerRef.current.classList.add('displayed');
+    setCurrentPres(containerRef.current);
   }, []);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function Presentation(props) {
       id="presentation-container"
       className="presentation-container"
       onClick={changeStage}
+      ref={containerRef}
     >
       {!owner ? (
         <h5>{props.drawingsList[props.current].playerName} is presenting...</h5>

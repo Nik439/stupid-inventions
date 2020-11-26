@@ -6,7 +6,6 @@ import './styles.css';
 
 function Problem(props) {
   const [problem, setProblem] = useState('');
-  const [problemCount, setProblemCount] = useState(0);
   const [input, setInput] = useState('');
 
   useEffect(() => {
@@ -16,7 +15,6 @@ function Problem(props) {
 
   const timer = useTimer(30000, () => {
     setInput('banana');
-    setProblemCount('banana'.length);
 
     let probInput = props.problem.replace('#', input.toUpperCase());
     props.submitProblemInput(probInput);
@@ -35,20 +33,17 @@ function Problem(props) {
     <form className="problem-container" onSubmit={e => handleSubmit(e)}>
       <h4>Time Remaining: {Math.ceil(timer / 1000)}</h4>
       <h2 className="problem-prompt">{problem}</h2>
-      <label className="problem-input-count">{problemCount}/50</label>
+      <label className="problem-input-count">{input.length}/50</label>
       <TextInput
         aria-label="problem-input"
         maxLength="50"
         autoComplete="off"
         type="text"
         value={input}
-        onChange={e => {
-          setInput(e.target.value);
-          setProblemCount(e.target.value.length);
-        }}
+        onChange={e => setInput(e.target.value)}
         placeholder="Fill the blank"
       />
-      <Button disabled={!problemCount} type="submit" value="SUBMIT" />
+      <Button disabled={!input.length} type="submit" value="SUBMIT" />
     </form>
   );
 }

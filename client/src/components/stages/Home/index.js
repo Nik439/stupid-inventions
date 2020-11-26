@@ -5,9 +5,6 @@ import './styles.css';
 
 function Home(props) {
   const [joinCode, setJoinCode] = useState('');
-  const [nameCount, setNameCount] = useState(
-    props.name ? props.name.length : 0,
-  );
   const [name, setName] = useState(props.name);
 
   return (
@@ -18,16 +15,13 @@ function Home(props) {
       ) : (
         ''
       )}
-      <label className="home-name-count">{nameCount}/20</label>
+      <label className="home-name-count">{name.length}/20</label>
       <TextInput
         maxLength="20"
         type="text"
         autoComplete="off"
         value={name}
-        onChange={e => {
-          setName(e.target.value);
-          setNameCount(e.target.value.length);
-        }}
+        onChange={e => setName(e.target.value)}
         placeholder="ENTER NAME"
       />
       <div className="home-inputs">

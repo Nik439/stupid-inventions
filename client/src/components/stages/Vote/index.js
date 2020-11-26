@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import useTimer from '../../../hooks/timer';
 import './styles.css';
 
@@ -7,9 +7,11 @@ function Vote(props) {
 
   const timer = useTimer(30000, () => props.doneVoting());
 
+  const ref = useRef(null);
+
   function handleVote(e) {
     if (votes <= 3) {
-      document.getElementById('vote-left').children[0].remove();
+      ref.current.children[0].remove();
       e.target.parentNode.querySelector('.vote-counter').innerHTML +=
         "<span class='vote-coin'></span>";
       setVotes(votes + 1);
@@ -47,7 +49,7 @@ function Vote(props) {
 
   return (
     <React.Fragment>
-      <p className="vote-left" id="vote-left">
+      <p ref={ref} className="vote-left" id="vote-left">
         Votes left: <span className="vote-coin" data-testid="coin"></span>
         <span className="vote-coin" data-testid="coin"></span>
         <span className="vote-coin" data-testid="coin"></span>
