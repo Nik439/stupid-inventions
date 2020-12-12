@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Results should render the leaderboard 1`] = `
+Array [
+  <tbody
+    data-testid="row"
+  >
+    <tr
+      class="results-leaderboard-cell"
+    >
+      <th
+        class="results-leaderboard-name"
+      >
+        NAME
+      </th>
+      <th
+        class="results-leaderboard-votes"
+      >
+        VOTES
+      </th>
+    </tr>
+    <tr
+      class="results-leaderboard-cell"
+    >
+      <td
+        class="results-leaderboard-name"
+      >
+        test
+      </td>
+      <td
+        class="results-leaderboard-votes"
+      >
+        3
+      </td>
+    </tr>
+    <tr
+      class="results-leaderboard-cell"
+    >
+      <td
+        class="results-leaderboard-name"
+      >
+        test2
+      </td>
+      <td
+        class="results-leaderboard-votes"
+      >
+        2
+      </td>
+    </tr>
+  </tbody>,
+]
+`;

@@ -1,0 +1,18 @@
+.btn {
+  background-color: var(--color-primary);
+  border: none;
+  padding: 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 1.5em;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--color-white);
+}
+
+.btn:disabled {
+  background-color: lightgrey;
+  cursor: not-allowed;
+  color: grey;
+}

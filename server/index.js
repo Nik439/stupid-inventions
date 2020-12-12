@@ -1,23 +1,23 @@
-require('dotenv').config()
-const express = require('express');
-const path = require('path');
+require('dotenv').config();
+const createApp = require('./app');
 const http = require('http');
 const sio = require('./io');
-const startDb = require('./db');
+const {startDb} = require('./models');
+const config = require('./config');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || config.port;
 
-const app = express();
-app.use(express.static(path.join(__dirname, '/../client/build')));
+function main() {
+  const app = createApp();
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/../client/build/index.html'));
-});
+  const server = http.createServer(app);
 
-const server = http.createServer(app);
+  sio(server);
 
-sio(server);
+  startDb().then(() => {
+    server.listen(port, () => console.log(`Listening on port ${port}`));
+  });
+}
+main();
 
-startDb().then(() => {
-  server.listen(port, () => console.log(`Listening on port ${port}`));
-});
+module.exports = createApp;

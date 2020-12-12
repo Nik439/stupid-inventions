@@ -1,0 +1,69 @@
+.results-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-title {
+  font-size: 10vmin;
+  padding: 1.5rem;
+  animation: suspense 1s ease;
+}
+
+.results-winner {
+  font-size: 8vmin;
+  padding: 8px;
+  animation: suspense 4s ease;
+}
+
+@keyframes suspense {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.results-leaderboard {
+  background-color: var(--color-primary);
+  padding: 2rem;
+  margin-top: 5rem;
+  border-collapse: collapse;
+  border-radius: 2rem;
+  animation: suspense 5s ease;
+}
+
+.results-leaderboard-cell {
+  font-size: 2rem;
+}
+
+.results-leaderboard-cell:first-of-type .results-leaderboard-name {
+  background-color: var(--color-heading);
+  border-right: 1px solid white;
+  border-top: none;
+  border-top-left-radius: 2rem;
+}
+
+.results-leaderboard-cell:first-of-type .results-leaderboard-votes {
+  background-color: var(--color-heading);
+  border-top: none;
+  border-top-right-radius: 2rem;
+}
+
+.results-leaderboard-name {
+  padding: 2rem;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.results-leaderboard-votes {
+  padding: 2rem;
+  border-top: 1px solid white;
+  text-align: center;
+}
