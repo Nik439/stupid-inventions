@@ -30,7 +30,8 @@
     "test": "run-p test:server test:client",
     "build:client": "cd client && npm run build",
     "validate": "run-p check:format lint test build:client",
-    "commit": "cz"
+    "commit": "cz",
+    "postinstall": "(cd client && npm install && npm install --only=dev); (cd server && npm install && npm install --only=dev)"
   },
   "husky": {
     "hooks": {

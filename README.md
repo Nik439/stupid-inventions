@@ -1,15 +1,19 @@
-# Stupid Inventions
+<h1 align="center'>Stupid Inventions</h1>
 
-A multiplayer in browser game to help improving presentation skills.
+<p align="center"><b>✏️ A multiplayer in browser game to help improving presentation skills in a real-time drawing competition.</b></p>
 
-## Setup
+## Getting Started
 
-Needs a populated mongo database. To connect to your db add a `.env` file in
-`/server` and according to the specifications of `.env.example` in the same
-folder. Then move to `/server/populateDb` and run `populateDb.js` to add all
-necessary data.
+* Install the dependencies with `npm install`
+* Create the local MongoDB instance and run `node server/populateDb/populateDb.js` to populate the database with the default set of questions.
+* Run `npm run dev` to start the development server and the client.
 
-Tests can be used by running `npm t` in either the server or client folders.
+## Tech Stack
+
+* React
+* ExpressJS
+* Socket.io
+* Mongoose
 
 ## Contributors
 
