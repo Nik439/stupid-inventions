@@ -1,6 +1,8 @@
-<h1 align="center'>Stupid Inventions</h1>
+<h1 align="center">Stupid Inventions</h1>
 
 <p align="center"><b>✏️ A multiplayer in browser game to help improving presentation skills in a real-time drawing competition.</b></p>
+
+<br />
 
 ## Getting Started
 
