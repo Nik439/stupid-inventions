@@ -4,17 +4,17 @@
 
 <br>
 
-<p align="center"><img src="readme-images/responsive.png" width="40%" height="auto"></img></p>
+<p align="center"><img src="readme-images/responsive.png" width="50%" height="auto"></img></p>
 
-- <p>Think of a problem based on the prompt<p><img src="readme-images/1.png" width="40%" height="auto">
+- <p>Think of a problem based on the prompt<p><img src="readme-images/1.png" width="35%" height="auto">
 
-- <p>Create domething to solve it<p><img src="readme-images/2.png" width="40%" height="auto">
+- <p>Create domething to solve it<p><img src="readme-images/2.png" width="35%" height="auto">
 
-- <p>Present it to your friends<p><img src="readme-images/3.jpg" width="40%" height="auto">
+- <p>Present it to your friends<p><img src="readme-images/3.jpg" width="35%" height="auto">
 
-- <p>Distribute your votes among your favorites<p><img src="readme-images/4.png" width="40%" height="auto">
+- <p>Distribute your votes among your favorites<p><img src="readme-images/4.png" width="35%" height="auto">
 
-- <p>🎉Win!!🎉<p><img src="readme-images/5.png" width="40%" height="auto">
+- <p>🎉Win!!🎉<p><img src="readme-images/5.png" width="35%" height="auto">
 
 ## Getting Started
 
