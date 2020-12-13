@@ -6,6 +6,8 @@
 
 <p align="center"><img src="readme-images/responsive.png" width="50%" height="auto"></img></p>
 
+<br><br>
+
 - <p>Think of a problem based on the prompt<p><img src="readme-images/1.png" width="35%" height="auto">
 
 - <p>Create domething to solve it<p><img src="readme-images/2.png" width="35%" height="auto">
