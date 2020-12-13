@@ -10,7 +10,7 @@
 
 - <p>Think of a problem based on the prompt<p><img src="readme-images/1.png" width="35%" height="auto">
 
-- <p>Create domething to solve it<p><img src="readme-images/2.png" width="35%" height="auto">
+- <p>Create something to solve it<p><img src="readme-images/2.png" width="35%" height="auto">
 
 - <p>Present it to your friends<p><img src="readme-images/3.jpg" width="35%" height="auto">
 
