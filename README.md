@@ -4,19 +4,19 @@
 
 <br>
 
-<p align="center"><img src="readme-images/responsive.png" width="50%" height="auto"></img></p>
+<p align="center"><img src="readme-images/responsive.png" width="500" height="auto"></img></p>
 
 <br><br>
 
-- <p>Think of a problem based on the prompt<p><img src="readme-images/1.png" width="35%" height="auto">
+<p align="center">Think of a problem based on the prompt<p><p align="center"><img src="readme-images/1.png" width="500" height="auto"></p>
 
-- <p>Create something to solve it<p><img src="readme-images/2.png" width="35%" height="auto">
+<p align="center">Create something to solve it<p><p align="center"><img src="readme-images/2.png" width="500" height="auto"></p>
 
-- <p>Present it to your friends<p><img src="readme-images/3.jpg" width="35%" height="auto">
+<p align="center">Present it to your friends<p><p align="center"><img src="readme-images/3.jpg" width="500" height="auto"></p>
 
-- <p>Distribute your votes among your favorites<p><img src="readme-images/4.png" width="35%" height="auto">
+<p align="center">Distribute your votes among your favorites<p><p align="center"><img src="readme-images/4.png" width="500" height="auto"></p>
 
-- <p>🎉Win!!🎉<p><img src="readme-images/5.png" width="35%" height="auto">
+<p align="center">🎉Win!!🎉<p><p align="center"><img src="readme-images/5.png" width="500" height="auto"></p>
 
 ## Getting Started
 
